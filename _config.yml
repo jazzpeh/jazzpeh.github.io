@@ -10,7 +10,7 @@ disqus: 'demowebsite'
 mailchimp-list: null
 include: ["_pages"]
 permalink: /:title/
-email: wowthemesnet@gmail.com
+email: jazzpehz@gmail.com
 github: 'https://github.com/jazzpeh'
 linkedin: 'https://www.linkedin.com/in/jazz-peh/'
 
