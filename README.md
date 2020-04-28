@@ -1,5 +1,17 @@
-# Memoirs Jekyll Theme
+# A 80% debugging, 20% coding programmer life
 
-[Live Demo](https://wowthemesnet.github.io/jekyll-theme-memoirs/) | [Docs & Download](https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/) |  [Buy me a coffee](https://www.wowthemes.net/donate/)
+Decided to start a blog to record everything that I learnt, or maybe even guides so that I can refer to when I forget about them.
 
-![memoirs](https://bootstrapstarter.com/assets/img/themes/memoirs-jekyll.jpg)
+## Development
+
+Just some notable things to remember.
+
+### Running it locally
+
+```sh
+bundle exec jekyll serve --watch
+```
+
+## Credits
+
+I'm using this amazing theme - `Memoirs Jekyll Theme`. Check it out [here](https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/).
