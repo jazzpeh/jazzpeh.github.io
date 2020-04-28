@@ -6,7 +6,7 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
  * @author Lea Verou
  */
 
-code[class*="language-"],
+/* code[class*="language-"],
 pre[class*="language-"] {
 	color: black;
 	background: none;
@@ -28,9 +28,9 @@ pre[class*="language-"] {
 	-moz-hyphens: none;
 	-ms-hyphens: none;
 	hyphens: none;
-}
+} */
 
-pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
+/* pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
 code[class*="language-"]::-moz-selection, code[class*="language-"] ::-moz-selection {
 	text-shadow: none;
 	background: #b3d4fc;
@@ -40,17 +40,17 @@ pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
 code[class*="language-"]::selection, code[class*="language-"] ::selection {
 	text-shadow: none;
 	background: #b3d4fc;
-}
+} */
 
-@media print {
+/* @media print {
 	code[class*="language-"],
 	pre[class*="language-"] {
 		text-shadow: none;
 	}
-}
+} */
 
 /* Code blocks */
-pre[class*="language-"] {
+/* pre[class*="language-"] {
 	padding: 1em;
 	margin: .5em 0;
 	overflow: auto;
@@ -66,7 +66,7 @@ pre[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
 	white-space: normal;
-}
+} */
 
 .token.comment,
 .token.prolog,
