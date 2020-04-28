@@ -1,7 +1,7 @@
 # Site
 name: "Jazz Peh"
 title: "A 80% debugging, 20% coding programmer life"
-description: "A 80% debugging, 20% coding programmer life"
+description: null
 logo: null
 favicon: 'assets/images/favicon.png'
 baseurl: ''
