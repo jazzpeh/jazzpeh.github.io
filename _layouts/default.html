@@ -4,15 +4,17 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-<link rel="icon" href="{{ site.baseurl }}/assets/images/logo.png">
+<link rel="icon" href="{{ site.baseurl }}/{{ site.favicon }}">
 
-<title>{{ page.title }} | {{site.name}}</title>
+<title>{{ page.title }} | {{ site.title }}</title>
 
 {% seo %}
-    
+
 <link href="{{ site.baseurl }}/assets/css/prism.css" rel="stylesheet">
 
 <link href="{{ site.baseurl }}/assets/css/theme.css" rel="stylesheet">
+
+<link href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.0.0/styles/dracula.min.css" rel="stylesheet">
 
 <script src="{{ site.baseurl }}/assets/js/jquery.min.js"></script>
 
@@ -41,8 +43,8 @@ ga('send', 'pageview');
 <!-- Begin Sidebar Navigation
 ================================================== -->
 
-<div class="sidebar">    
-</div>   
+<div class="sidebar">
+</div>
 <div class="nav-icon">
     <div class="hamburger-bar"></div>
 </div>
@@ -51,10 +53,9 @@ ga('send', 'pageview');
     <ul>
         <h3>Navigation</h3>
         <li><a href="{{ site.baseurl }}/">Home</a></li>
-        <li><a href="{{ site.baseurl }}/about">About <span class="badge badge-primary">Memoirs Jekyll Theme</span></a></li>
-        <li><a target="_blank" href="https://bootstrapstarter.com/bootstrap-templates/jekyll-theme-memoirs/">Get Memoirs</a></li>      
-        <li><a href="{{ site.baseurl }}/contact">Contact</a></li>       
-    </ul>   
+        <li><a href="{{ site.baseurl }}/categories">Categories</a></li>
+        <li><a href="{{ site.baseurl }}/tags">Tags</a></li>
+    </ul>
 </nav>
 
 {% include search-lunr.html %}
@@ -69,15 +70,17 @@ ga('send', 'pageview');
 
     <!-- Site Logo/Name
     ================================================== -->
-   
+
+    {% if site.logo %}
     <a class="navbar-brand" href="{{ site.baseurl }}/">
         <img src="{{ site.baseurl }}/{{ site.logo }}" alt="{{ site.name }}">
-    </a>  
-   
+    </a>
+    {% endif %}
+
 
     <!-- Site Tag
     ================================================== -->
-    {% if page.url == '/' %}
+    {% if page.url == '/' and site.description %}
         <p class="sitetag">
             {{ site.description }}
         </p>
@@ -102,7 +105,7 @@ ga('send', 'pageview');
         </form>
     </div>
     {% endif %}
-    
+
 </div>
 
 <!-- Begin Footer
@@ -111,9 +114,15 @@ ga('send', 'pageview');
     <div class="container">
         <div class="row">
             <div class="col-md-6 col-sm-12 text-center text-lg-left">
-                Copyright © {{ site.time | date: "%Y" }} {{ site.name }} 
+                Copyright © {{ site.time | date: "%Y" }} {{ site.name }}
+                {% if site.github %}
+                <a class="social-icon" href="{{ site.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                {% endif %}
+                {% if site.linkedin %}
+                    <a class="social-icon" href="{{ site.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                {% endif %}
             </div>
-            <div class="col-md-6 col-sm-12 text-center text-lg-right">    
+            <div class="col-md-6 col-sm-12 text-center text-lg-right">
                 <a target="_blank" href="https://www.wowthemes.net/memoirs-free-jekyll-theme/">Memoirs Jekyll Theme</a> by WowThemes.net
             </div>
         </div>

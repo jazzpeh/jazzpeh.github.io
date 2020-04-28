@@ -607,8 +607,21 @@ body.active-side {
 
     .social-icon {
       display: inline-block;
-      margin-left: 5px;
-      width: 20px;
+			margin-left: 10px;
+
+			.fab {
+				font-size: 1.5rem;
+			}
+
+      .fa {
+				&-github {
+					color: #181516;
+				}
+
+				&-linkedin {
+					color: #2a67b2;
+				}
+      }
     }
 }
 
