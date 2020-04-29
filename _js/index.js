@@ -4,6 +4,8 @@ import Canvas from './modules/canvas';
 
 const bfs = () => {
   // Prepare stage
+  const element = document.querySelector('#bfs');
+  if (!element) return;
   const canvas = new Canvas(document.querySelector('#bfs'));
   const levelColors = ['#fdd835', '#fdd835', '#ffb300', '#ffb300', '#ffb300', '#fb8c00', '#fb8c00'];
   const x = [canvas.width * 0.3, canvas.width * 0.5, canvas.width * 0.7]
