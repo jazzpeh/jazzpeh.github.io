@@ -115,12 +115,14 @@ ga('send', 'pageview');
         <div class="row">
             <div class="col-md-6 col-sm-12 text-center text-lg-left">
                 Copyright © {{ site.time | date: "%Y" }} {{ site.name }}
-                {% if site.github %}
-                <a class="social-icon" href="{{ site.github }}" target="_blank"><i class="fab fa-github"></i></a>
-                {% endif %}
-                {% if site.linkedin %}
-                    <a class="social-icon" href="{{ site.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
-                {% endif %}
+                <div class="social">
+                    {% if site.github %}
+                    <a class="social-icon" href="{{ site.github }}" target="_blank"><i class="fab fa-github"></i></a>
+                    {% endif %}
+                    {% if site.linkedin %}
+                        <a class="social-icon" href="{{ site.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    {% endif %}
+                </div>
             </div>
             <div class="col-md-6 col-sm-12 text-center text-lg-right">
                 <a target="_blank" href="https://www.wowthemes.net/memoirs-free-jekyll-theme/">Memoirs Jekyll Theme</a> by WowThemes.net
@@ -147,6 +149,8 @@ ga('send', 'pageview');
 {% if page.layout == 'post' %}
 <script id="dsq-count-scr" src="//{{site.disqus}}.disqus.com/count.js"></script>
 {% endif %}
+
+<script type="text/javascript" src="/assets/js/main.js" async></script>
 
 </body>
 </html>

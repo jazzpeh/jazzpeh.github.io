@@ -605,24 +605,39 @@ body.active-side {
     font-size:15px;
     background:#fff;
 
-    .social-icon {
-      display: inline-block;
-			margin-left: 10px;
+		.social {
+			margin: 10px 0;
 
-			.fab {
-				font-size: 1.5rem;
+			&-icon {
+				display: inline-block;
+				margin-left: 10px;
+
+				&:first-child {
+					margin-left: 0;
+				}
+
+				.fab {
+					font-size: 1.5rem;
+				}
+
+				.fa {
+					&-github {
+						color: #181516;
+					}
+
+					&-linkedin {
+						color: #2a67b2;
+					}
+				}
 			}
+		}
+}
 
-      .fa {
-				&-github {
-					color: #181516;
-				}
-
-				&-linkedin {
-					color: #2a67b2;
-				}
-      }
-    }
+// canvas code aid
+canvas.code-aid {
+	width: 100%;
+	min-height: 400px;
+	background-color: #111;
 }
 
 // override
@@ -634,7 +649,19 @@ body.active-side {
 @media (min-width: 768px) {
     .container, .container-sm, .container-md, .container-lg {
         max-width: 80%;
-    }
+		}
+}
+@media (min-width: 1024px) {
+	.footer {
+		.social {
+			display: inline-block;
+			margin: 0;
+
+			&-icon:first-child {
+				margin-left: 10px;
+			}
+		}
+	}
 }
 @media (min-width: 1440px) {
     .container, .container-sm, .container-md, .container-lg {
