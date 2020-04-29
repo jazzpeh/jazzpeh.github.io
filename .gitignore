@@ -6,4 +6,3 @@ Gemfile.lock
 *~
 .jekyll-cache
 node_modules
-assets/js/main.js
