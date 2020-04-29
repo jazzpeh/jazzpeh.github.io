@@ -636,8 +636,12 @@ body.active-side {
 // canvas code aid
 canvas.code-aid {
 	width: 100%;
-	min-height: 400px;
-	background-color: #111;
+	min-height: 300px;
+    background-color: #111;
+
+    @media (min-width: 768px) {
+        min-height: 400px;
+    }
 }
 
 // override
