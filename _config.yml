@@ -81,4 +81,4 @@ kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
 
-exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock]
+exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, node_modules]
