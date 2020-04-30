@@ -18,15 +18,7 @@ export default class Canvas {
      */
     this.ctx;
 
-    this.init();
-  }
-
-  /**
-   * Initializes
-   */
-  init() {
     this.fixResolution();
-    this.attachEvents();
   }
 
   /**
@@ -40,13 +32,6 @@ export default class Canvas {
 
     this.ctx = this.element.getContext('2d');
     this.ctx.scale(this.dpi, this.dpi);
-  }
-
-  /**
-   * Attach events
-   */
-  attachEvents() {
-    window.addEventListener('resize', this.fixResolution.bind(this));
   }
 
   /**
