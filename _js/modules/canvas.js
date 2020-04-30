@@ -11,22 +11,42 @@ export default class Canvas {
     /**
      * @type {Number}
      */
-    this.height = +getComputedStyle(this.element).getPropertyValue("height").slice(0, -2) * window.devicePixelRatio;
+    this.dpi = window.devicePixelRatio;
 
     /**
-     * @type {Number}
+     * @type {CanvasRenderingContext2D|undefined}
      */
-    this.width = +getComputedStyle(this.element).getPropertyValue("width").slice(0, -2) * window.devicePixelRatio;
+    this.ctx;
 
+    this.init();
+  }
+
+  /**
+   * Initializes
+   */
+  init() {
     this.fixResolution();
+    this.attachEvents();
   }
 
   /**
    * Fix low res issue
    */
   fixResolution() {
-    this.element.setAttribute('height', this.height);
-    this.element.setAttribute('width', this.width);
+    const sizes = this.element.getBoundingClientRect();
+
+    this.element.width = sizes.width * this.dpi;
+    this.element.height = sizes.height * this.dpi;
+
+    this.ctx = this.element.getContext('2d');
+    this.ctx.scale(this.dpi, this.dpi);
+  }
+
+  /**
+   * Attach events
+   */
+  attachEvents() {
+    window.addEventListener('resize', this.fixResolution.bind(this));
   }
 
   /**
@@ -38,32 +58,30 @@ export default class Canvas {
    * @param {bool} options.ignoreNeighbour
    */
   drawNode(node, { size, color, fontColor, ignoreNeighbour }) {
-    size = size || 50;
+    if (!this.ctx) return;
+
+    size = (size || 20);
     color = color || '#fff';
     fontColor = fontColor || '#000';
 
-    let ctx = this.element.getContext('2d');
-
-    ctx.beginPath();
-    ctx.fillStyle = color;
-    ctx.moveTo(node.coords[0], node.coords[1]);
-    ctx.arc(node.coords[0], node.coords[1], size, 0, Math.PI * 2, false);
-    ctx.fill();
+    this.ctx.beginPath();
+    this.ctx.fillStyle = color;
+    this.ctx.moveTo(node.coords[0], node.coords[1]);
+    this.ctx.arc(node.coords[0], node.coords[1], size, 0, Math.PI * 2, false);
+    this.ctx.fill();
 
     if (node.neighbours && !ignoreNeighbour) {
       for (const neighbour of node.neighbours) {
-        ctx = this.element.getContext("2d");
-        ctx.strokeStyle = color;
-        ctx.moveTo(node.coords[0], node.coords[1]);
-        ctx.lineTo(neighbour.coords[0], neighbour.coords[1]);
-        ctx.stroke();
+        this.ctx.strokeStyle = color;
+        this.ctx.moveTo(node.coords[0], node.coords[1]);
+        this.ctx.lineTo(neighbour.coords[0], neighbour.coords[1]);
+        this.ctx.stroke();
       }
     }
 
-    ctx = this.element.getContext('2d');
-    ctx.font = `${size - 10}px sans-serf`;
-    ctx.fillStyle = fontColor;
-    ctx.textAlign = 'center';
-    ctx.fillText(node.value, node.coords[0], node.coords[1] + 10);
+    this.ctx.font = `${size - 5}px sans-serf`;
+    this.ctx.fillStyle = fontColor;
+    this.ctx.textAlign = 'center';
+    this.ctx.fillText(node.value, node.coords[0], node.coords[1] + 5);
   }
 }
