@@ -72,14 +72,14 @@ def lcs(s1, s2, i1, i2):
 
 So the solution is not optimised. Why would I say that? This is because, we are running certain calculation twice or more. Let's take a look at the **recursion tree below**:
 
-<pre class="text-white bg-dark">
-                            lcs(0,0)
-                  /             |             \
-              lcs(0,1)        lcs(1,0)        lcs(1,1)
-                |               |               |
-                |-lcs(0,2)      |-lcs(1,1)      |-lcs(1,2)
-                |-lcs(1,1)      |-lcs(2,0)      |-lcs(2,1)
-                |-lcs(1,2)      |-lcs(2,1)      |-lcs(2,2)
+<pre class="p-5 text-white bg-dark">
+              lcs(0,0)
+    /             |             \
+lcs(0,1)        lcs(1,0)        lcs(1,1)
+  |               |               |
+  |-lcs(0,2)      |-lcs(1,1)      |-lcs(1,2)
+  |-lcs(1,1)      |-lcs(2,0)      |-lcs(2,1)
+  |-lcs(1,2)      |-lcs(2,1)      |-lcs(2,2)
 </pre>
 
 We are actually running **lcs(1,1)** at least 3 times, **lcs(1,2)** at least twice, etc. This is a case of overlapping subproblems. Hence in order to optimise this solution we can use `Dynamic Programming`.

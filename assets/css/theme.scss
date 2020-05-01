@@ -14,13 +14,9 @@ $enable-rounded: false;
 @import "bootstrap/mixins";
 @import 'bootstrap/bootstrap';
 @import 'stars';
-
+@import 'highlight/dracula';
 
 // general
-html {
-    overflow-x: hidden;
-}
-
 body, input, button, select, optgroup, textarea {
     font-family:Sen;
 }
@@ -451,21 +447,10 @@ img, img:hover {
         margin-top:30px;
         margin-bottom:30px;
     }
-    // code {
-    //     font-size: 15px;
-    //     color: #94918d;
-    // }
-    // code[class*="language-"], pre[class*="language-"] {
-    //     font-size:15px;
-    //     margin-bottom:30px;
-    //     background: #fff;
-    //     color:inherit;
-    // }
-    // div.code-toolbar > .toolbar a, div.code-toolbar > .toolbar button, div.code-toolbar > .toolbar span {
-    //     margin-right:2px;
-    //     margin-left:2px;
-    //     box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
-    // }
+
+    pre code {
+        padding: 2rem;
+    }
 }
 
 .c-rating button {
@@ -521,7 +506,7 @@ img, img:hover {
         font-size: 15px;
         padding:5px 7px;
         display:inline-block;
-        margin: 0 3px;
+        margin: 0 3px 10px;
     }
 }
 
@@ -657,7 +642,11 @@ canvas.code-aid {
 @media (min-width: 768px) {
     .container, .container-sm, .container-md, .container-lg {
         max-width: 80%;
-		}
+    }
+
+    .article-post pre code {
+        padding: 3rem;
+    }
 }
 @media (min-width: 1024px) {
 	.footer {
