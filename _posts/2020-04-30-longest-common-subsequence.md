@@ -39,7 +39,7 @@ Using **Example 1** as a reference, we need to determine the probablity. Typical
 
 Say, if we check the first characters of each string. Since they matches, we can say that `1 + F(2, 2)`.
 
-Let's go in depth on the subproblem above. The value `1` is because we have a match on the first character. The second part `F(2, 2)` means the next iteration where we're moving to the second character for each string.
+Let's go in depth on the subproblem above. There is an additional of `1` because we have a match on the first character. The second part `F(2, 2)` means that for the next iteration where we're moving to the second character for each string.
 
 ### Doesn't match
 
@@ -70,7 +70,7 @@ def lcs(s1, s2, i1, i2):
 
 ### Optimisation
 
-So if you noticed, the solution is not optimised. Why would I say that? This is because, we are running certain calculation twice or more. Let's take a look at the **recursion tree below**:
+So the solution is not optimised. Why would I say that? This is because, we are running certain calculation twice or more. Let's take a look at the **recursion tree below**:
 
 <pre class="text-white bg-dark">
                             lcs(0,0)
@@ -107,7 +107,7 @@ def lcs(s1, s2, i1, i2):
   return dp[i1, i2]
 ```
 
-As we can see, basically it is the almost the same as `Divide & Conquer` except for the additonal variable to store already solved subproblems. This would ensure that we don't run the recursion again to solve something that was already solved.
+As we can see above, it is almost the same as `Divide & Conquer` except for the additonal variable to store already-solved subproblems. This would ensure that we don't run the recursion again to solve something that was already solved.
 
 ### Bottom Up Approach
 
