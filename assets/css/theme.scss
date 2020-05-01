@@ -17,6 +17,10 @@ $enable-rounded: false;
 
 
 // general
+html {
+    overflow-x: hidden;
+}
+
 body, input, button, select, optgroup, textarea {
     font-family:Sen;
 }
