@@ -34,10 +34,11 @@ const bfs = () => {
   graph.addUndirectedEdge(5, 6);
   graph.addUndirectedEdge(6, 7);
 
-  const updateNode = (g, i) => {
-    canvas.drawNode(g[i], { color: levelColors[i], ignoreNeighbour: true });
-    if (i < g.length - 1) {
-      setTimeout(() => updateNode(g, i+1), 1000);
+  const updateNode = (g, i, colors) => {
+    colors[i] = levelColors[i];
+    canvas.drawNodes(g, { colors });
+    if (i < g.length) {
+      setTimeout(() => updateNode(g, i+1, colors), 1000);
     } else {
       setTimeout(() => loop(), 2000);
     }
@@ -45,13 +46,14 @@ const bfs = () => {
 
   const loop = () => {
     const bfsGraph = [];
-    nodes.forEach(n => canvas.drawNode(n, {}));
+    canvas.drawNodes(nodes, {});
 
+    const colors = ['#fff', '#fff', '#fff', '#fff', '#fff', '#fff', '#fff'];
     graph.reset();
     graph.bfs(n => bfsGraph.push(n));
 
     let i = 0;
-    setTimeout(() => updateNode(bfsGraph, i), 1000);
+    setTimeout(() => updateNode(bfsGraph, i, colors), 1000);
   };
 
   loop();
