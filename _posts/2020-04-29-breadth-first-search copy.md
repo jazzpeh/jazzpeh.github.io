@@ -2,7 +2,7 @@
 layout: post
 title:  "Breadth First Search"
 author: jazz
-categories: [ Tech ]
+categories: [ Software Engineering ]
 tags: [ Graph,  Data Structures & Algorithm ]
 image: assets/images/bfs.jpg
 ---

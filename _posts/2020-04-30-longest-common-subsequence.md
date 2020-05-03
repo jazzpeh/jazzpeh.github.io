@@ -2,7 +2,7 @@
 layout: post
 title:  "Longest Common Subsequence"
 author: jazz
-categories: [ Tech ]
+categories: [ Software Engineering ]
 tags: [ Divide & Conquer, Dynamic Programming,  Data Structures & Algorithm ]
 image: assets/images/dc-lcs.jpg
 ---
