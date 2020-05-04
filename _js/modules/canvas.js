@@ -56,9 +56,9 @@ export default class Canvas {
    * @param {string} options.color
    * @param {string} options.fontColor
    * @param {string} options.lineColor
-   * @param {bool} options.ignoreNeighbour
+   * @param {Array<string>} options.lines
    */
-  drawNode(node, { size, color, fontColor, lineColor, ignoreNeighbour }) {
+  drawNode(node, { size, color, fontColor, lineColor, lines }) {
     if (!this.ctx) return;
 
     size = (size || 20);
@@ -66,8 +66,14 @@ export default class Canvas {
     fontColor = fontColor || '#000';
     lineColor = lineColor || '#fff';
 
-    if (node.neighbours && !ignoreNeighbour) {
-      for (const neighbour of node.neighbours) {
+    if (node.neighbours) {
+      let neighbours = node.neighbours;
+
+      if (lines) {
+        neighbours = neighbours.filter(n => lines.indexOf(n.value) > -1);
+      }
+
+      for (const neighbour of neighbours) {
         this.ctx.strokeStyle = lineColor;
 
         let startX = node.coords[0];
@@ -93,7 +99,6 @@ export default class Canvas {
           }
         }
 
-
         this.ctx.moveTo(startX, startY);
         this.ctx.lineTo(endX, endY);
         this.ctx.stroke();
@@ -117,9 +122,10 @@ export default class Canvas {
    * @param {Number} options.size
    * @param {Array<string>} options.colors
    * @param {Array<string>} options.fontColors
-   * @param {bool} options.ignoreNeighbour
    */
-  drawNodes(nodes, { size, colors, fontColors, ignoreNeighbour }) {
+  drawNodes(nodes, { size, colors, fontColors }) {
+    const lineMap = {};
+
     nodes.forEach((n, i) => {
       let color = '';
       if (colors && i < colors.length - 1) {
@@ -131,7 +137,16 @@ export default class Canvas {
         fontColor = fontColors[i];
       }
 
-      this.drawNode(n, { size, color, fontColors, ignoreNeighbour });
+      const lines = [];
+      for (const neighbour of n.neighbours) {
+        const key1 = `${n.value}|${neighbour.value}`;
+        const key2 = `${neighbour.value}|${n.value}`;
+        if (key1 in lineMap || key2 in lineMap) continue;
+        lineMap[key1] = true;
+        lines.push(neighbour.value);
+      }
+
+      this.drawNode(n, { size, color, fontColor, lines });
     });
   }
 }
