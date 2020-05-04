@@ -17,7 +17,7 @@ In the easiest possible way to explain:
 
 ## Code algorithm
 
-For BFS we utilise `queue` to help with the operations.
+For BFS, we utilise `queue` to help with the operations.
 
 ```py3
 def bfs(graph):
@@ -37,7 +37,7 @@ def bfs(graph):
       print(current_node.value)
 
       for neighbour in current_node.neighbours:
-        if neighbour.isVisisted: continue
+        if neighbour.isVisited: continue
         queue.enqueue(neighbour)
 ```
 
