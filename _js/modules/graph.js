@@ -46,6 +46,42 @@ export default class Graph {
   }
 
   /**
+   * Perform depth first search algorithm
+   * @param {Function} callback
+   */
+  dfs(callback) {
+    for (const node of this.nodeList) {
+      if (node.hasVisited) continue;
+      this._dfsVisit(node, callback);
+    }
+  }
+
+   /**
+   * DFS internal method
+   * @private
+   * @param {GraphNode} node
+   * @param {Function} callback
+   */
+  _dfsVisit(node, callback) {
+    const stack = [];
+    stack.push(node);
+    while(stack.length > 0) {
+      const presentNode = stack.pop();
+      if (presentNode.hasVisited) continue;
+
+      presentNode.hasVisited = true;
+      if (typeof callback === 'function') {
+        callback(presentNode);
+      }
+
+      for (const neighbour of presentNode.neighbours) {
+        if (neighbour.hasVisited) continue;
+        stack.push(neighbour);
+      }
+    }
+  }
+
+  /**
    * Add an undirected edge between 2 nodes
    * @param {Number} i
    * @param {Number} j
