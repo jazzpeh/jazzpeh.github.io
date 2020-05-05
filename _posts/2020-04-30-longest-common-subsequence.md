@@ -116,7 +116,7 @@ As we can see above, it is almost the same as `Divide & Conquer` except for the 
 Firstly, let's start from looking at the `Top Down Approach` using a matrix table with **Example 2** as the test input.
 
 <div class="table-responsive">
-  <table class="table table-dark table-striped table-sm table-bordered" style="font-size: .8rem">
+  <table class="table table-dark table-striped table-sm table-bordered">
     <thead>
       <tr>
         <th rowspan="2" colspan="2"></th>
