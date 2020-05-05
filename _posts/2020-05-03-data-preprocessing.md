@@ -37,83 +37,6 @@ Germany,50,83000,No
 France,37,67000,Yes
 ```
 
-**In table view**
-
-<div class="table-responsive">
-  <table class="table table-dark table-striped">
-    <thead>
-      <tr>
-        <th>Country</th>
-        <th>Age</th>
-        <th>Salary</th>
-        <th>Purchased</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>France</td>
-        <td>44</td>
-        <td>72000</td>
-        <td>No</td>
-      </tr>
-      <tr>
-        <td>Spain</td>
-        <td>27</td>
-        <td>48000</td>
-        <td>Yes</td>
-      </tr>
-      <tr>
-        <td>Germany</td>
-        <td>30</td>
-        <td>54000</td>
-        <td>No</td>
-      </tr>
-      <tr>
-        <td>Spain</td>
-        <td>38</td>
-        <td>61000</td>
-        <td>No</td>
-      </tr>
-      <tr>
-        <td>Germany</td>
-        <td>40</td>
-        <td></td>
-        <td>Yes</td>
-      </tr>
-      <tr>
-        <td>France,</td>
-        <td>35</td>
-        <td>58000</td>
-        <td>Yes</td>
-      </tr>
-      <tr>
-        <td>Spain</td>
-        <td></td>
-        <td>52000</td>
-        <td>No</td>
-      </tr>
-      <tr>
-        <td>France</td>
-        <td>48</td>
-        <td>79000</td>
-        <td>Yes</td>
-      </tr>
-      <tr>
-        <td>Germany</td>
-        <td>50</td>
-        <td>83000</td>
-        <td>No</td>
-      </tr>
-      <tr>
-        <td>France</td>
-        <td>37</td>
-        <td>67000</td>
-        <td>Yes</td>
-      </tr>
-    </tbody>
-  </table>
-</div>
-
 So we're going to separate the dataset into `matrix of features` and `dependent variable vectors`.
 
 - `Matrix of features`: These are the columns which are being used to predict the dependent variable.
@@ -124,6 +47,14 @@ dataset = pd.read_csv('Data.csv')
 x = dataset.iloc(:, :-1).values
 y = dataset.iloc(:, -1).values
 ```
+
+> **What does ’iloc’ exactly do?**
+>
+> It locates the column by its index. In other words, using ’iloc’ allows us to take columns by just taking their index.
+
+> **Why do we create x and y separately?**
+>
+> Because we want to work with Numpy arrays, instead of Pandas dataframes. Numpy arrays are the most convenient format to work with when doing data preprocessing and building Machine Learning models. So we create two separate arrays, one that contains our independent variables (also called the input features), and another one that contains our dependent variable (what we want to predict).
 
 `x` refers to the `matrix of features` which are actually the first 3 columns, **Conutry**, **Age** and **Salary**. And `y` is the `dependent variable vector` which will be predicted and is the last column **Purchased**. Hence, to further explain the code above, I'm using the `pandas` library to import **Data.csv** file and then using the `iloc` method which is available from the library to define the columns which are needed for `x` and `y` separately.
 
@@ -164,6 +95,10 @@ x[:, 1:3] = imputer.transform(x[:, 1:3])
 ```
 
 To handle missing data, we make use of the <a href="https://scikit-learn.org/stable/" target="_blank">`scikit-learn`</a> library.
+
+> **What is the difference between fit and transform?**
+>
+> The fit part is used to extract some info of the data on which the object is applied (here, Imputer will spot the missing values and get the mean of the column). Then, the transform part is used to apply some transformation (here, Imputer will replace the missing value by the mean).
 
 ```py3
 print(x)
@@ -210,6 +145,10 @@ print(x)
 #  [1.0 0.0 0.0 37.0 67000.0]]
 ```
 
+> **What do the two ’fit_transform’ methods do?**
+>
+> When the ’fit_transform()’ method is called from the LabelEncoder() class, it transforms the categories strings into integers. For example, it transforms France, Spain and Germany into 0, 1 and 2. Then, when the ’fit_transform()’ method is called from the OneHotEncoder() class, it creates separate columns for each different labels with binary values 0 and 1. Those separate columns are the dummy variables.
+
 ### Encoding the Dependent Variable
 
 ```py3
@@ -231,6 +170,11 @@ The recommended ratio is *80%* of the dataset to be used for training and *20%* 
 > **Why dataset spliting comes first and feature scale later?**
 >
 > Feature scaling is a technique to get the mean and standard deviation of the feature, so if we apply feature scaling before splitting, then it will actually get the mean and standard deviation of all the values including the ones in the test set and since the test set is not something we're supposed to have for data in production, it would then caused information leakage on the test set. Hence, tt is to prevent information leakage on the test set which we're not supposed to have until the training is done.
+
+
+> **Why do we split on the dependent variable?**
+>
+> Because we want to have well distributed values of the dependent variable in the training and test set. For example if we only had the same value of the dependent variable in the training set, our model wouldn’t be able to learn any correlation between the independent and dependent variables.
 
 ```py3
 from sklearn.model_selection import train_test_split
