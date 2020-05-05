@@ -7,13 +7,11 @@ tags: [ Graph,  Data Structures & Algorithm ]
 image: assets/images/dfs.jpg
 ---
 
-## What is Depth First Search (DFS)?
+DFS is an algorithm for traversing Graph data structures. It starts by selecting some arbitrary node and explores as far as possible along each edge before backtracking.
 
 In the easiest possible way to explain:
 
 <canvas id="dfs" class="code-aid"></canvas>
-
-> DFS is an algorithm for traversing Graph data structures. It starts by selecting some arbitrary node and explores as far as possible along each edge before backtracking.
 
 ## Code algorithm
 
