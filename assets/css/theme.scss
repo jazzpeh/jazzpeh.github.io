@@ -451,6 +451,11 @@ img, img:hover {
     pre code {
         padding: 2rem;
     }
+
+    pre.language-csv {
+        max-height: 200px;
+        overflow-y: scroll;
+    }
 }
 
 .c-rating button {
@@ -626,16 +631,52 @@ body.active-side {
 canvas.code-aid {
 	width: 100%;
 	min-height: 300px;
-    background-color: #111;
+    background-color: #212529;
 
     @media (min-width: 768px) {
         min-height: 400px;
     }
 }
 
+// math
+.math {
+    background-color: #212529;
+    color: #fff;
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    text-align: center;
+}
+
 // override
 .table {
     margin-bottom: 2rem;
+
+    &.table-sm {
+        font-size: .8rem;
+
+        th, td {
+            padding: .3rem .8rem;
+        }
+    }
+
+    &-responsive {
+        .table {
+            th, td {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    &-csv {
+        margin-bottom: 2rem;
+        max-height: 200px;
+        overflow-y: scroll;
+
+        .table {
+            margin-bottom: 0;
+        }
+    }
 }
 
 //responsive tweaks
@@ -646,6 +687,10 @@ canvas.code-aid {
 
     .article-post pre code {
         padding: 3rem;
+    }
+
+    .article-post pre.language-csv code {
+       padding: 2rem;
     }
 }
 @media (min-width: 1024px) {
