@@ -730,6 +730,12 @@ The table below shows the implementation between Array and Linked List for Binar
         <td>Merge sort</td>
         <td><code>O(n log n)</code></td>
         <td><code>O(n)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Quick sort</td>
+        <td><code>O(n log n)</code></td>
+        <td><code>O(n)<sup>*</sup></code></td>
         <td>No</td>
       </tr>
       <tr>
