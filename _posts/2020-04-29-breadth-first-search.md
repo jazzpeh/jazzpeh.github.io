@@ -39,4 +39,4 @@ def bfs(graph):
         queue.enqueue(neighbour)
 ```
 
-For time and space complexity, check out my post on [Run Time Complexity]({% post_url 2020-04-28-run-time-complexity %}).
+For time and space complexity, check out my post on [Run Time Complexity]({% post_url 2020-04-28-run-time-complexity %}#common-operations).

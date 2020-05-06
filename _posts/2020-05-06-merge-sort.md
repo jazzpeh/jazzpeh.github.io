@@ -63,4 +63,4 @@ def merge(a: List[int], left: int, mid: int, right: int) -> None:
       j += 1
 ```
 
-For time and space complexity, check out my post on [Run Time Complexity]({% post_url 2020-04-28-run-time-complexity %}).
+For time and space complexity, check out my post on [Run Time Complexity]({% post_url 2020-04-28-run-time-complexity %}#sorting-algorithms).
