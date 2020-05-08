@@ -161,13 +161,14 @@ export default class Canvas {
    * @param {Array<string>} options.fontColors
    */
   drawArr(arr, { size, fillColors, strokeColors, fontColors }) {
-    size = size || 50;
+    const dimension = this.element.getBoundingClientRect();
+
+    size = (size || 0.1) * dimension.width ;
     fillColors = fillColors || arr.map(() => '#fff');
     strokeColors = strokeColors || arr.map(() => '#5d5d5d');
     fontColors = fontColors || arr.map(() => '#000');
 
-    const dimension = this.element.getBoundingClientRect();
-    const startX = dimension.width * 0.15;
+    const startX = dimension.width * 0.05;
     const startY = dimension.height * 0.4;
 
     for (let i = 0, len = arr.length; i < len; ++i) {
