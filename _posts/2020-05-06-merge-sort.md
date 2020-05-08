@@ -27,7 +27,7 @@ Merge sort is a `Divide & Conquer` algorithm. It divides the input array into 2 
 
 ## Code algorithm
 
-Let's now look at how we implement it in code.
+Let's now look at how to implement it in code.
 
 ```py3
 import sys
