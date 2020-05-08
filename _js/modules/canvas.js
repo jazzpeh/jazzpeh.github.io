@@ -119,6 +119,7 @@ export default class Canvas {
   /**
    * Draw graph nodes
    * @param {Array<Node>|Array<GraphNode>} nodes
+   * @param {object} options
    * @param {Number} options.size
    * @param {Array<string>} options.colors
    * @param {Array<string>} options.fontColors
@@ -148,5 +149,42 @@ export default class Canvas {
 
       this.drawNode(n, { size, color, fontColor, lines });
     });
+  }
+
+  /**
+   * Draw array
+   * @param {Array<number>} arr
+   * @param {Object} options
+   * @param {number} options.size
+   * @param {Array<string>} options.fillColors
+   * @param {Array<string>} options.strokeColors
+   * @param {Array<string>} options.fontColors
+   */
+  drawArr(arr, { size, fillColors, strokeColors, fontColors }) {
+    size = size || 50;
+    fillColors = fillColors || arr.map(() => '#fff');
+    strokeColors = strokeColors || arr.map(() => '#5d5d5d');
+    fontColors = fontColors || arr.map(() => '#000');
+
+    const dimension = this.element.getBoundingClientRect();
+    const startX = dimension.width * 0.15;
+    const startY = dimension.height * 0.4;
+
+    for (let i = 0, len = arr.length; i < len; ++i) {
+      const x = startX + (size * i);
+
+      this.ctx.beginPath();
+      this.ctx.fillStyle = fillColors[i];
+      this.ctx.rect(x, startY, size, size);
+      this.ctx.fill();
+
+      this.ctx.strokeStyle = strokeColors[i];
+      this.ctx.strokeRect(x, startY, size, size);
+
+      this.ctx.font = `${size * 0.5}px sans-serf`;
+      this.ctx.fillStyle = fontColors[i];
+      this.ctx.textAlign = 'center';
+      this.ctx.fillText(arr[i], x + (size / 2), startY + (size / 1.5));
+    }
   }
 }
