@@ -3,7 +3,7 @@ layout: post
 title:  "A cheat guide to run time complexity"
 author: jazz
 categories: [ Software Engineering ]
-tags: [ Big-O, Data Structures & Algorithm ]
+tags: [ Big-O, Data Structures and Algorithm ]
 image: assets/images/bigo.jpg
 ---
 

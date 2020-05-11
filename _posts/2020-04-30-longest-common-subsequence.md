@@ -3,7 +3,7 @@ layout: post
 title:  "Longest Common Subsequence"
 author: jazz
 categories: [ Software Engineering ]
-tags: [ Divide & Conquer, Dynamic Programming,  Data Structures & Algorithm ]
+tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
 image: assets/images/dc-lcs.jpg
 ---
 
@@ -217,7 +217,7 @@ Firstly, let's start from looking at the `Top Down Approach` using a matrix tabl
   </table>
 </div>
 
-We then need to find the cell which doesn't have any dependency as our starting point as we will have our first answer there. That would be the last cell `A5K7`. And we slowly move our way up to the rest of the cells until we reach the first cell `A1B1` which will give us our final answer.
+We then need to find the cell which doesn't have any dependency as our starting point as we will have our first answer there. That would be the last cell `A5B7`. And we slowly move our way up to the rest of the cells until we reach the first cell `A1B1` which will give us our final answer.
 
 `B8`, `A6` rows and columns are our base conditions where we return **0**.
 

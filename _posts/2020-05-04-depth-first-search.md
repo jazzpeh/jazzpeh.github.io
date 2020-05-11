@@ -3,7 +3,7 @@ layout: post
 title:  "Depth First Search"
 author: jazz
 categories: [ Software Engineering ]
-tags: [ Graph,  Data Structures & Algorithm ]
+tags: [ Graph,  Data Structures and Algorithm ]
 image: assets/images/dfs.jpg
 ---
 

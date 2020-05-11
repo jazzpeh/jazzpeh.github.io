@@ -3,7 +3,7 @@ layout: post
 title:  "Quick Sort"
 author: jazz
 categories: [ Software Engineering ]
-tags: [ Sorting, Divide & Conquer, Data Structures & Algorithm ]
+tags: [ Sorting, Divide and Conquer, Data Structures and Algorithm ]
 image: assets/images/quick-sort.jpg
 ---
 
