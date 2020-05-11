@@ -4,7 +4,7 @@ title:  "0/1 Knapsack Problem"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Data Structures and Algorithm ]
-image: assets/images/convert-one-string-to-another.jpg
+image: assets/images/knapsack.jpg
 ---
 
 Given the weights and profits of **N** items, we are asked to put these items in a knapsack which as a capacity **C**. Restriction is, we cannot break the item into smaller units (fractional unit is not allowed). Find the maximum profit from the items in the knapsack.
