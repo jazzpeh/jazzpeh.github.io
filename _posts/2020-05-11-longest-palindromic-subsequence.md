@@ -32,11 +32,11 @@ Explanation: "AMEEWMEA" => "AMEEMA"
 This problem can be solved by applying `Divide and Conquer` to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let's try to derive the subproblems.
 
 ```text
-If the first and last character matches: 1 + f(1,8)      ---|---max
+If the first and last character matches: 2 + f(1,8)      ---|---max
 If it doesn't match: max of [0 + f(0,8)] or [0 + f(1,9)] ---|
 ```
 
-For palindrome, the first and last character should be the same so that it reads the same from the front and the back. Hence, to achive optimal substructure, if the first and last character matches, our answer increases by 1 and we move on to the next characters, hence, `1 + f(1,8)`. If it doesn't match, we should then attempt to see if the next characters on both side matches and get the max value from it. Therefore, `max of [0 + f(0,8)] or [0 + f(1,9)]`.
+For palindrome, the first and last character should be the same so that it reads the same from the front and the back. Hence, to achive optimal substructure, if the first and last character matches, our answer increases by 2 and we move on to the next characters, hence, `2 + f(1,8)`. If it doesn't match, we should then attempt to see if the next characters on both side matches and get the max value from it. Therefore, `max of [0 + f(0,8)] or [0 + f(1,9)]`.
 
 ## Code Algortihm
 
@@ -65,7 +65,7 @@ Let's look at the an example of the **recursion tree** see if we need to optimis
 <pre class="p-5 text-white bg-dark">
                 lps(0,3)
     /               |               \
-  lps(2)        lps(1,3)        lps(1,2)
+  lps(0,2)        lps(1,3)        lps(1,2)
   |                |                |
   |-lps(1,2)       |-lps(2,3)       |-lps(2,2)
   |-lps(0,1)       |-lps(1,2)       |-lps(1,1)
