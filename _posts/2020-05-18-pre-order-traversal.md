@@ -11,7 +11,7 @@ Lets look at the 4 options to traverse a binary tree:
 
 - Depth First Search
   - Pre-order
-  - In-order
+  - [In-order]({% post_url 2020-05-19-in-order-traversal %})
   - Post-order
 - Breadth First Search
   - Level-order
@@ -33,20 +33,20 @@ We first visit the `Root`, then the `Left Subtree` and lastly, the `Right subtre
 222
 
 r = root
-l = left subtree
-r = right subtree
+lt = left subtree
+rt = right subtree
 
-1. r(l)(r)
-2. 20(l)(r)
-3. 20(r(l)(r))(r)
-4. 20(100(l)(r))(r)
-5. 20(100(r(l)(r))(r))(r)
-6. 20(100(50(l)(r))(r))(r)
-7. 20(100(50(222)(r))(r))(r)
-8. 20(100(50(222))(r))(r)
-9. 20(100(50(222))(15))(r)
-10. 20(100(50(222))(15))(3(l)(r))
-11. 20(100(50(222))(15))(3(250)(r))
+1. r(lt)(rt)
+2. 20(lt)(rt)
+3. 20(r(lt)(rt))(rt)
+4. 20(100(lt)(rt))(rt)
+5. 20(100(r(lt)(rt))(rt))(rt)
+6. 20(100(50(lt)(rt))(rt))(rt)
+7. 20(100(50(222)(rt))(rt))(rt)
+8. 20(100(50(222))(rt))(rt)
+9. 20(100(50(222))(15))(rt)
+10. 20(100(50(222))(15))(3(lt)(rt))
+11. 20(100(50(222))(15))(3(250)(rt))
 12. 20(100(50(222))(15))(3(250)(35))
 
 Answer: 20, 100, 50, 222, 15, 3, 250, 35
