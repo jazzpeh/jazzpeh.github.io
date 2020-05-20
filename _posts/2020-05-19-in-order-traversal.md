@@ -12,7 +12,7 @@ Lets look at the 4 options to traverse a binary tree:
 - Depth First Search
   - [Pre-order]({% post_url 2020-05-18-pre-order-traversal %})
   - In-order
-  - Post-order
+  - [Post-order]({% post_url 2020-05-20-post-order-traversal %})
 - Breadth First Search
   - Level-order
 
@@ -38,12 +38,12 @@ rt = right subtree
 
 1. (lt)r(rt)
 2. (lt)20(rt)
-3. ((lt)r(rt))20(r)
-4. ((lt)100(rt))20(r)
-5. (((lt)r(rt))100(rt))20(r)
-6. (((lt)50(rt))100(rt))20(r)
-7. (((222)50)100(rt))20(r)
-8. (((222)50)100(15))20(r)
+3. ((lt)r(rt))20(rt)
+4. ((lt)100(rt))20(rt)
+5. (((lt)r(rt))100(rt))20(rt)
+6. (((lt)50(rt))100(rt))20(rt)
+7. (((222)50)100(rt))20(rt)
+8. (((222)50)100(15))20(rt)
 9. (((222)50)100(15))20((lt)r(rt))
 10. (((222)50)100(15))20((lt)3(rt))
 11. (((222)50)100(15))20((250)3(35))
