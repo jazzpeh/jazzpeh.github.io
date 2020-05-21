@@ -1,30 +1,2120 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml"/>
-    <pubDate>{{ site.time | date_to_rfc822 }}</pubDate>
-    <lastBuildDate>{{ site.time | date_to_rfc822 }}</lastBuildDate>
-    <generator>Jekyll v{{ jekyll.version }}</generator>
-    {% for post in site.posts limit:10 %}
+    <title>A 80% debugging, 20% coding programmer life</title>
+    <description></description>
+    <link>/</link>
+    <atom:link href="/feed.xml" rel="self" type="application/rss+xml"/>
+    <pubDate>Thu, 21 May 2020 19:32:31 +0800</pubDate>
+    <lastBuildDate>Thu, 21 May 2020 19:32:31 +0800</lastBuildDate>
+    <generator>Jekyll v4.0.0</generator>
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date_to_rfc822 }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
-        {% for tag in post.tags %}
-        <category>{{ tag | xml_escape }}</category>
-        {% endfor %}
-        {% for cat in post.categories %}
-        <category>{{ cat | xml_escape }}</category>
-        {% endfor %}
+        <title>Post-order Traversal</title>
+        <description>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Depth First Search
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/pre-order-traversal/&quot;&gt;Pre-order&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/in-order-traversal/&quot;&gt;In-order&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;Post-order&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Breadth First Search
+    &lt;ul&gt;
+      &lt;li&gt;Level-order&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this post, let’s explore &lt;code&gt;Post-order&lt;/code&gt; traversal.&lt;/p&gt;
+
+&lt;h2 id=&quot;visualise-how-it-traverse&quot;&gt;Visualise how it traverse&lt;/h2&gt;
+
+&lt;p&gt;We first visit the &lt;code&gt;Left Subtree&lt;/code&gt;, then the &lt;code&gt;Right subtree&lt;/code&gt; and lastly, the &lt;code&gt;Root&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;               20
+             /    \
+          /         \
+        100         3
+      /     \     /   \
+    50      15  250   35
+  /
+222
+
+r = root
+lt = left subtree
+rt = right subtree
+
+1. (lt)(rt)r
+2. ((lt)(rt)r)(rt)20
+3. ((lt)(rt)100)(rt)20
+4. (((lt)(rt)r)(rt)100)(rt)20
+5. (((lt)(rt)50)(rt)100)(rt)20
+6. (((222)50)(rt)100)(rt)20
+7. (((222)50)(15)100)(rt)20
+8. (((222)50)(15)100)((lt)(rt)r)20
+9. (((222)50)(15)100)((lt)(rt)3)20
+10. (((222)50)(15)100)((250)(35)3)20
+
+Answer: 222, 50, 15, 100, 250, 35, 3, 20
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;code-algorithm&quot;&gt;Code Algorithm&lt;/h2&gt;
+
+&lt;p&gt;Here’s the code example to implmenent a &lt;code&gt;Post-order&lt;/code&gt;traversal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;# Definition for binary node.
+# class BinaryNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def post_order(root: BinaryNode) -&amp;gt; None:
+  if not root:
+    throw Error()
+  else:
+    post_order(root.left)
+    post_order(root.right)
+    print(root.val)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Wed, 20 May 2020 00:00:00 +0800</pubDate>
+        <link>/post-order-traversal/</link>
+        <guid isPermaLink="true">/post-order-traversal/</guid>
+        
+        <category>Binary Tree</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>In-order Traversal</title>
+        <description>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Depth First Search
+    &lt;ul&gt;
+      &lt;li&gt;&lt;a href=&quot;/pre-order-traversal/&quot;&gt;Pre-order&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;In-order&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/post-order-traversal/&quot;&gt;Post-order&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Breadth First Search
+    &lt;ul&gt;
+      &lt;li&gt;Level-order&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this post, let’s explore &lt;code&gt;In-order&lt;/code&gt; traversal.&lt;/p&gt;
+
+&lt;h2 id=&quot;visualise-how-it-traverse&quot;&gt;Visualise how it traverse&lt;/h2&gt;
+
+&lt;p&gt;We first visit the &lt;code&gt;Left Subtree&lt;/code&gt;, then the &lt;code&gt;Root&lt;/code&gt; and lastly, the &lt;code&gt;Right subtree&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;               20
+             /    \
+          /         \
+        100         3
+      /     \     /   \
+    50      15  250   35
+  /
+222
+
+r = root
+lt = left subtree
+rt = right subtree
+
+1. (lt)r(rt)
+2. (lt)20(rt)
+3. ((lt)r(rt))20(rt)
+4. ((lt)100(rt))20(rt)
+5. (((lt)r(rt))100(rt))20(rt)
+6. (((lt)50(rt))100(rt))20(rt)
+7. (((222)50)100(rt))20(rt)
+8. (((222)50)100(15))20(rt)
+9. (((222)50)100(15))20((lt)r(rt))
+10. (((222)50)100(15))20((lt)3(rt))
+11. (((222)50)100(15))20((250)3(35))
+
+Answer: 222, 50, 100, 15, 20, 250, 3, 35
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;code-algorithm&quot;&gt;Code Algorithm&lt;/h2&gt;
+
+&lt;p&gt;Here’s the code example to implmenent a &lt;code&gt;In-order&lt;/code&gt;traversal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;# Definition for binary node.
+# class BinaryNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def in_order(root: BinaryNode) -&amp;gt; None:
+  if not root:
+    throw Error()
+  else:
+    in_order(root.left)
+    print(root.val)
+    in_order(root.right)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Tue, 19 May 2020 00:00:00 +0800</pubDate>
+        <link>/in-order-traversal/</link>
+        <guid isPermaLink="true">/in-order-traversal/</guid>
+        
+        <category>Binary Tree</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Pre-order Traversal</title>
+        <description>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Depth First Search
+    &lt;ul&gt;
+      &lt;li&gt;Pre-order&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/in-order-traversal/&quot;&gt;In-order&lt;/a&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;a href=&quot;/post-order-traversal/&quot;&gt;Post-order&lt;/a&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;Breadth First Search
+    &lt;ul&gt;
+      &lt;li&gt;Level-order&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In this post, let’s explore &lt;code&gt;Pre-order&lt;/code&gt; traversal.&lt;/p&gt;
+
+&lt;h2 id=&quot;visualise-how-it-traverse&quot;&gt;Visualise how it traverse&lt;/h2&gt;
+
+&lt;p&gt;We first visit the &lt;code&gt;Root&lt;/code&gt;, then the &lt;code&gt;Left Subtree&lt;/code&gt; and lastly, the &lt;code&gt;Right subtree&lt;/code&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;               20
+             /    \
+          /         \
+        100         3
+      /     \     /   \
+    50      15  250   35
+  /
+222
+
+r = root
+lt = left subtree
+rt = right subtree
+
+1. r(lt)(rt)
+2. 20(lt)(rt)
+3. 20(r(lt)(rt))(rt)
+4. 20(100(lt)(rt))(rt)
+5. 20(100(r(lt)(rt))(rt))(rt)
+6. 20(100(50(lt)(rt))(rt))(rt)
+7. 20(100(50(222)(rt))(rt))(rt)
+8. 20(100(50(222))(rt))(rt)
+9. 20(100(50(222))(15))(rt)
+10. 20(100(50(222))(15))(3(lt)(rt))
+11. 20(100(50(222))(15))(3(250)(rt))
+12. 20(100(50(222))(15))(3(250)(35))
+
+Answer: 20, 100, 50, 222, 15, 3, 250, 35
+
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;code-algorithm&quot;&gt;Code Algorithm&lt;/h2&gt;
+
+&lt;p&gt;Here’s the code example to implmenent a &lt;code&gt;Pre-order&lt;/code&gt;traversal.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;# Definition for binary node.
+# class BinaryNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def pre_order(root: BinaryNode) -&amp;gt; None:
+  if not root:
+    throw Error()
+  else:
+    print(root.val)
+    pre_order(root.left)
+    pre_order(root.right)
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Mon, 18 May 2020 00:00:00 +0800</pubDate>
+        <link>/pre-order-traversal/</link>
+        <guid isPermaLink="true">/pre-order-traversal/</guid>
+        
+        <category>Binary Tree</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Number of paths to reach last cell</title>
+        <description>&lt;p&gt;Given a &lt;strong&gt;(n,n) 2D matrix&lt;/strong&gt; and a &lt;strong&gt;total cost&lt;/strong&gt; to reach the destination cell, we need to start from &lt;strong&gt;(0,0)&lt;/strong&gt; cell and go till &lt;strong&gt;(n-1,n-1)&lt;/strong&gt; cell. Assuming that each cell has a &lt;strong&gt;cost&lt;/strong&gt; associated and we can only go right or down from current cell. Find the number of ways to reach destination cell with given total cost.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example
+-----------
+input: [
+  [ 4, 7, 1, 6 ],
+  [ 5, 7, 3, 9 ],
+  [ 3, 2, 1, 2 ],
+  [ 7, 1, 6, 3 ]
+]
+cost: 25
+output: 2
+Explanation: 4-&amp;gt;7-&amp;gt;1-&amp;gt;3-&amp;gt;1-&amp;gt;6-&amp;gt;3 and 4-&amp;gt;5-&amp;gt;7-&amp;gt;4-&amp;gt;1-&amp;gt;2-&amp;gt;3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let’s try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;1. f(2, 3, 22) -&amp;gt; e.g. 5 ways ---|---sum
+2. f(3, 2, 22) -&amp;gt; e.g. 4 ways ---|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;We shall start by looking at the last cell. In order to reach the last cell, we know that the traversal can only go right or down. Therefore, it meant that from the last cell, we can only go &lt;strong&gt;left&lt;/strong&gt; or &lt;strong&gt;up&lt;/strong&gt;. If the given cost is 25, we know that in order to reach the last cell which has a value of 3, the cell before need to only have a value of &lt;strong&gt;22&lt;/strong&gt;. Hence, if we can solve these, by summing them up we can then get our final answer.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def num_paths(mat: List[List[int]], row: int, col: int, cost: int) -&amp;gt; int:
+  if cost &amp;lt; 0:
+    return 0
+
+  remaining_cost: int = cost - mat[row][col]
+
+  if row == 0 and col == 0:
+    return 1 if remaining_cost == 0 else 0
+
+  if row == 0:
+    return num_paths(mat, 0, col-1, remaining_cost)
+  if col == 0:
+    return num_paths(mat, row-1, 0, remaining_cost)
+
+  from_up: int = num_paths(mat, row-1, col, remaining_cost)
+  from_left: int = num_paths(mat, row, col-1, remaining_cost)
+
+  return from_up + from_left
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; see if we need to optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                                   p(3,3,25)
+                                  /          \
+                              /                \
+                          /                      \
+                      p(2,3,22)                  p(3,2,22)
+                    /        \                  /       \
+                  /             \           p(2,2,20)   p(3,1,20)
+            p(1,3,20)         p(2,2,20)     /      \
+            /         \                 p(1,2,19) p(2,1,19)
+          /             \
+      p(0,3,11)       p(1,2,11)
+      |               /        \
+      |-p(0,2,5)   p(0,2,8)   p(1,1,8)
+      |-p(0,3,4)   |
+                   |-p(0,1,7)
+&lt;/pre&gt;
+
+&lt;p&gt;We are computing a new of the subproblems more than once such as &lt;code&gt;p(2,2,20)&lt;/code&gt;. We can then apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def num_paths(mat: List[List[int]], row: int, col: int, cost: int) -&amp;gt; int:
+  if cost &amp;lt; 0:
+    return 0
+
+  remaining_cost: int = cost - mat[row][col]
+
+   if row == 0 and col == 0:
+    return 1 if remaining_cost == 0 else 0
+
+  if (row, col, cost) not in dp:
+    if row == 0:
+      dp[row, col, cost] = num_paths_topdown(mat, 0, col-1, remaining_cost)
+    elif col == 0:
+      dp[row, col, cost] = num_paths_topdown(mat, row-1, 0, remaining_cost)
+    else:
+      from_up: int = num_paths_topdown(mat, row-1, col, remaining_cost)
+      from_left: int = num_paths_topdown(mat, row, col-1, remaining_cost)
+      dp[row, col, cost] = from_up + from_left
+
+  return dp[row, col, cost]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h2&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Firstly, let’s start from looking at the &lt;code&gt;Top Down Approach&lt;/code&gt; using a matrix table.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;C1&lt;/th&gt;
+        &lt;th&gt;C2&lt;/th&gt;
+        &lt;th&gt;C3&lt;/th&gt;
+        &lt;th&gt;C4&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R1&lt;/th&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;?&lt;/td&gt;
+        &lt;td&gt;R1C1&lt;/td&gt;
+        &lt;td&gt;R1C2&lt;/td&gt;
+        &lt;td&gt;R1C3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R2&lt;/th&gt;
+        &lt;td&gt;R1C1&lt;/td&gt;
+        &lt;td&gt;R1C2+R2C1&lt;/td&gt;
+        &lt;td&gt;R1C3+R2C2&lt;/td&gt;
+        &lt;td&gt;R1C4+R2C3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R3&lt;/th&gt;
+        &lt;td&gt;R2C1&lt;/td&gt;
+        &lt;td&gt;R2C2+R3C1&lt;/td&gt;
+        &lt;td&gt;R2C3+R3C2&lt;/td&gt;
+        &lt;td&gt;R2C4+R3C3&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R4&lt;/th&gt;
+        &lt;td&gt;R3C1&lt;/td&gt;
+        &lt;td&gt;R3C2+R4C1&lt;/td&gt;
+        &lt;td&gt;R3C3+R4C2&lt;/td&gt;
+        &lt;td class=&quot;bg-info&quot;&gt;R3C4+R4C3&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For our top down approach, in order to get the solution at &lt;code&gt;R1C1&lt;/code&gt;, we entered from &lt;code&gt;R4C4&lt;/code&gt; and worked our way up, checking the cost as we go along. Hence, in order to perform bottom up approach. However, this is a tricky scenario because typically at our base condition, we have a value, instead, at &lt;code&gt;R1C1&lt;/code&gt; we are dependent on the other cells for the remaining cost. Hence, we will need to apply the same format, starting from the bottom and working our way up to &lt;code&gt;R1C1&lt;/code&gt; with a twist. I will cover it in the next time as it is going to be long post by itself.&lt;/p&gt;
+</description>
+        <pubDate>Tue, 12 May 2020 00:00:00 +0800</pubDate>
+        <link>/number-of-paths-to-reach-last-cell/</link>
+        <guid isPermaLink="true">/number-of-paths-to-reach-last-cell/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Min cost to reach last cell in 2D Array</title>
+        <description>&lt;p&gt;Given a &lt;strong&gt;(n,n) 2D matrix&lt;/strong&gt;, we need to start from &lt;strong&gt;(0,0)&lt;/strong&gt; cell and go till &lt;strong&gt;(n-1,n-1)&lt;/strong&gt; cell. Assuming that each cell has a &lt;strong&gt;cost&lt;/strong&gt; associated and we can only go &lt;strong&gt;right or down&lt;/strong&gt; from current cell, find the traversal in &lt;strong&gt;minimum&lt;/strong&gt; cost.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example
+-----------
+input: [
+  [ 4, 7, 8, 6, 4 ],
+  [ 6, 7, 3, 9, 2 ],
+  [ 3, 8, 1, 2, 4 ],
+  [ 7, 1, 7, 3, 7 ],
+  [ 2, 9, 8, 9, 3 ]
+]
+output: 36
+Explanation: 4-&amp;gt;6-&amp;gt;7-&amp;gt;3-&amp;gt;1-&amp;gt;2-&amp;gt;3-&amp;gt;3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let’s try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;1. min of going right f(0, 1) and going down f(1, 0)
+2. if we reach the end of the right cell, we can only go down
+3. if we reach the end of the bottom cell, we can only go right
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def min_cost(mat: List[List[int]], row: int, col: int) -&amp;gt; int:
+  if row &amp;gt; len(mat)-1 or col &amp;gt; len(mat[0])-1:
+    return sys.maxsize
+
+  if row == len(mat)-1 and col == len(mat[0])-1:
+    return mat[row][col]
+
+  right: int = min_cost(mat, row, col+1)
+  down: int = min_cost(mat, row+1, col)
+
+  return mat[row][col] + min(right, down)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; see if we need to optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                                    min(0,0)
+                                  /          \
+                              /                \
+                          /                      \
+                      min(0,1)                   min(1,0)
+                    /        \                  /       \
+                  /             \           min(1,1)     min(2,0)
+              min(0,2)         min(1,1)     /      \
+            /         \                 min(1,2)  min(2,1)
+          /             \
+        min(0,3)       min(1,2)
+      /       \        /       \
+min(0,4)   min(1,3)  min(1,3)  min(2,2)
+&lt;/pre&gt;
+
+&lt;p&gt;We are computing a new of the subproblems more than once such as &lt;code&gt;min(1,1)&lt;/code&gt; and &lt;code&gt;min(1,2)&lt;/code&gt;. We can then apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def min_cost(mat: List[List[int]], row: int, col: int) -&amp;gt; int:
+  if row &amp;gt; len(mat)-1 or col &amp;gt; len(mat[0])-1:
+    return sys.maxsize
+
+  if row == len(mat)-1 and col == len(mat[0])-1:
+    return mat[row][col]
+
+  if (row, col) not in dp:
+    right: int = min_cost(mat, row, col+1)
+    down: int = min_cost(mat, row+1, col)
+
+    dp[row, col] = mat[row][col] + min(right, down)
+
+  return dp[row, col]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h2&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Firstly, let’s start from looking at the &lt;code&gt;Top Down Approach&lt;/code&gt; using a matrix table.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th&gt;&lt;/th&gt;
+        &lt;th&gt;C1&lt;/th&gt;
+        &lt;th&gt;C2&lt;/th&gt;
+        &lt;th&gt;C3&lt;/th&gt;
+        &lt;th&gt;C4&lt;/th&gt;
+        &lt;th&gt;C5&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R1&lt;/th&gt;
+        &lt;td class=&quot;bg-info&quot;&gt;min(R1C2,R2C1)+4&lt;/td&gt;
+        &lt;td&gt;min(R1C3,R2C2)+7&lt;/td&gt;
+        &lt;td&gt;min(R1C4,R2C4)+8&lt;/td&gt;
+        &lt;td&gt;min(R1C5,R2C5)+6&lt;/td&gt;
+        &lt;td&gt;R2C5+4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R2&lt;/th&gt;
+        &lt;td&gt;min(R2C2,R3C1)+6&lt;/td&gt;
+        &lt;td&gt;min(R2C3,R3C2)+7&lt;/td&gt;
+        &lt;td&gt;min(R2C4,R3C3)+3&lt;/td&gt;
+        &lt;td&gt;min(R2C5,R3C4)+9&lt;/td&gt;
+        &lt;td&gt;R3C5+2&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R3&lt;/th&gt;
+        &lt;td&gt;min(R3C2,R4C1)+3&lt;/td&gt;
+        &lt;td&gt;min(R3C3,R4C2)+8&lt;/td&gt;
+        &lt;td&gt;min(R3C4,R4C3)+1&lt;/td&gt;
+        &lt;td&gt;min(R3C5,R4C4)+2&lt;/td&gt;
+        &lt;td&gt;R4C5+4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R4&lt;/th&gt;
+        &lt;td&gt;min(R4C2,R5C1)+7&lt;/td&gt;
+        &lt;td&gt;min(R4C3,R5C2)+1&lt;/td&gt;
+        &lt;td&gt;min(R4C4,R5C3)+7&lt;/td&gt;
+        &lt;td&gt;min(R4C5,R5C4)+3&lt;/td&gt;
+        &lt;td&gt;R5C5+7&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;R5&lt;/th&gt;
+        &lt;td&gt;R5C2+2&lt;/td&gt;
+        &lt;td&gt;R5C3+9&lt;/td&gt;
+        &lt;td&gt;R5C4+8&lt;/td&gt;
+        &lt;td&gt;R5C5+9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;3&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;For top down approach, we enter from &lt;code&gt;R1C1&lt;/code&gt; and then recusively all the way to &lt;code&gt;R5C5&lt;/code&gt; to hit our base condition which is the first independent value. Hence, for bottom up approach, we can the solve &lt;code&gt;R5C5&lt;/code&gt; cell first, then the &lt;code&gt;R5&lt;/code&gt; row and then make our way up to &lt;code&gt;R1C1&lt;/code&gt; to get our final answer.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def min_cost(mat: List[List[int]]) -&amp;gt; int:
+  dp = {}
+
+  for row in range(len(mat)-1, -1, -1):
+    for col in range(len(mat[0])-1, -1, -1):
+      if row == len(mat)-1 and col == len(mat[0])-1:
+        dp[row, col] = mat[row][col]
+      elif row == len(mat)-1:
+        dp[row, col] = mat[row][col] + dp[row, col+1]
+      elif col == len(mat[0])-1:
+        dp[row, col] = mat[row][col] + dp[row+1, col]
+      else:
+        dp[row, col] = mat[row][col] + min(dp[row+1, col], dp[row, col+1])
+
+  return dp[0,0]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Tue, 12 May 2020 00:00:00 +0800</pubDate>
+        <link>/min-cost-to-reach-last-cell-in-2d-array/</link>
+        <guid isPermaLink="true">/min-cost-to-reach-last-cell-in-2d-array/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Longest Palindromic Substring</title>
+        <description>&lt;p&gt;Given a string &lt;strong&gt;S&lt;/strong&gt;, we need to find length of its &lt;strong&gt;Longest Palindromic Substring&lt;/strong&gt;. Palindrome is a string that reads the same backwards as well as forward and can be odd or even length. A substring is a &lt;strong&gt;contiguous&lt;/strong&gt; sequence of characters within a string.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 1
+-----------
+s: &quot;ABCYRCFBTUA&quot;
+output: 1
+Explanation: &quot;ABCYRCFBTUA&quot; =&amp;gt; &quot;A&quot;
+              ^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 2
+-----------
+s: &quot;ABCCBUA&quot;
+output: 4
+Explanation: &quot;ABCCBUA&quot; =&amp;gt; &quot;BCCB&quot;
+               ^^^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 3
+-----------
+s: &quot;MQADASM&quot;
+output: 3
+Explanation: &quot;MQADASM&quot; =&amp;gt; &quot;ADA&quot;
+                ^^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let’s try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;If the first and last character matches: 2 + f(2,6) only if the remaining characters are palindrome ---|--- max
+If it doesn't match: max of [0 + f(2,7)] or [0 + f(1,6)]                                            ---|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For palindrome, the first and last character should be the same so that it reads the same from the front and the back. Hence, to achive optimal substructure, if the first and last character matches, our answer increases by 2 and we move on to the next characters, hence, &lt;code&gt;2 + f(2,6)&lt;/code&gt;. However, if the remaining characters are not palindrome, we should not increase our answer by 2 since we are looking for substring which needs to be contiguous. If it doesn’t match, we should then attempt to see if the next characters on both side matches and get the max value from it. Therefore, &lt;code&gt;max of [0 + f(2,7)] or [0 + f(1,6)]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def lps(s: str, start: int, end: int) -&amp;gt; int:
+    if start &amp;gt; end:
+      return 0
+
+    if start == end:
+      return 1
+
+    count1 = 0
+    if s[start] == s[end]:
+      remainingLen = end - start - 1
+      if lps(s, start+1, end-1) == remainingLen:
+        count1 = 2 + remainingLen
+
+    count2 = lps(s, start, end-1)
+    count3 = lps(s, start+1, end)
+
+    return max(count1, count2, count3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; see if we need to optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                lps(0,8)
+    /               |               \
+  lps(1,7)        lps(1,8)        lps(0,7)
+  |                |                |
+  |-lps(2,6)       |-lps(2,7)       |-lps(1,6)
+  |-lps(2,7)       |-lps(2,8)       |-lps(1,7)
+  |-lps(1,6)       |-lps(1,7)       |-lps(0,6)
+&lt;/pre&gt;
+
+&lt;p&gt;We are computing a new of the subproblems more than once such as &lt;code&gt;lps(1,7)&lt;/code&gt;. We can then apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;top-down-approach&quot;&gt;Top Down Approach&lt;/h3&gt;
+
+&lt;p&gt;We will start off by applying &lt;code&gt;Top Down Approach&lt;/code&gt; (also known as &lt;code&gt;Memoization&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def lps(s: str, start: int, end: int) -&amp;gt; int:
+    if start &amp;gt; end:
+      return 0
+
+    if start == end:
+      return 1
+
+    if (start, end) not in dp:
+      count1 = 0
+      if s[start] == s[end]:
+        remainingLen = end - start - 1
+        if lps(s, start+1, end-1) == remainingLen:
+          count1 = 2 + remainingLen
+
+      count2 = lps(s, start, end-1)
+      count3 = lps(s, start+1, end)
+
+      dp[start, end] = max(count1, count2, count3)
+
+    return dp[start, end]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h2&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Firstly, let’s start from looking at the &lt;code&gt;Top Down Approach&lt;/code&gt; using a matrix table.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot; colspan=&quot;2&quot;&gt;&lt;/th&gt;
+        &lt;th&gt;B1&lt;/th&gt;
+        &lt;th&gt;B2&lt;/th&gt;
+        &lt;th&gt;B3&lt;/th&gt;
+        &lt;th&gt;B4&lt;/th&gt;
+        &lt;th&gt;B5&lt;/th&gt;
+        &lt;th&gt;B6&lt;/th&gt;
+        &lt;th&gt;B7&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A&lt;/th&gt;
+        &lt;th&gt;B&lt;/th&gt;
+        &lt;th&gt;C&lt;/th&gt;
+        &lt;th&gt;C&lt;/th&gt;
+        &lt;th&gt;B&lt;/th&gt;
+        &lt;th&gt;U&lt;/th&gt;
+        &lt;th&gt;A&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A1&lt;/th&gt;
+        &lt;th&gt;A&lt;/th&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max((0),A1B1,A2B2)&lt;/td&gt;
+        &lt;td&gt;max((0),A1B2,A2B3)&lt;/td&gt;
+        &lt;td&gt;max((0),A1B6,A2B4)&lt;/td&gt;
+        &lt;td&gt;max((0),A1B4,A2B5)&lt;/td&gt;
+        &lt;td&gt;max((0),A1B5,A2B6)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max((A2B6==5?A2B6+2:0),A1B6,A2B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A2&lt;/th&gt;
+        &lt;th&gt;B&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max((0),A2B2,A3B3)&lt;/td&gt;
+        &lt;td&gt;max((0),A2B3,A3B4)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max((A3B4==2?A3B4+2:0),A2B4,A3B5)&lt;/td&gt;
+        &lt;td&gt;max((0),A2B5,A3B6)&lt;/td&gt;
+        &lt;td&gt;max((0),A2B6,A3B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A3&lt;/th&gt;
+        &lt;th&gt;C&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max((A4B3==0?A4B3+2:0),A3B3,A4B4)&lt;/td&gt;
+        &lt;td&gt;max((0),A3B4,A4B5)&lt;/td&gt;
+        &lt;td&gt;max((0),A3B5,A4B6)&lt;/td&gt;
+        &lt;td&gt;max((0),A3B6,A4B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A4&lt;/th&gt;
+        &lt;th&gt;C&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max((0),A4B4,A5B5)&lt;/td&gt;
+        &lt;td&gt;max((0),A4B5,A5B6)&lt;/td&gt;
+        &lt;td&gt;max((0),A4B6,A5B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A5&lt;/th&gt;
+        &lt;th&gt;B&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max((0),A5B5,A6B6)&lt;/td&gt;
+        &lt;td&gt;max((0),A5B6,A6B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A6&lt;/th&gt;
+        &lt;th&gt;U&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max((0),A6B6,A7B7)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A7&lt;/th&gt;
+        &lt;th&gt;A&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;To achieve bottom up approach, we then need to solve row by row starting from the last row.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def lps(s: str) -&amp;gt; int:
+  dp = {}
+
+  for col in range(len(s)):
+    for row in range(len(s)-1, -1, -1):
+      if row &amp;gt; col:
+        dp[row, col] = 0
+      elif row == col:
+        dp[row, col] = 1
+      else:
+        if s[row] == s[col]:
+          length = 0
+          remainingLen = col - row - 1
+          if remainingLen == dp[row+1, col-1]:
+            length = 2
+          dp[row, col] = max(length+dp[row+1, col-1], dp[row, col-1], dp[row+1, col])
+        else:
+          dp[row, col] = max(dp[row, col-1], dp[row+1, col])
+
+  return dp[0, len(s)-1]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Tue, 12 May 2020 00:00:00 +0800</pubDate>
+        <link>/longest-palindromic-substring/</link>
+        <guid isPermaLink="true">/longest-palindromic-substring/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>0/1 Knapsack Problem</title>
+        <description>&lt;p&gt;Given the weights and profits of &lt;strong&gt;N&lt;/strong&gt; items, we are asked to put these items in a knapsack which as a capacity &lt;strong&gt;C&lt;/strong&gt;. Restriction is, we cannot break the item into smaller units (fractional unit is not allowed). Find the maximum profit from the items in the knapsack.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example
+-----------
+items: [&quot;Mango&quot;, &quot;Apple&quot;, &quot;Banana&quot;, &quot;Orange&quot;]
+profits: [31, 26, 72, 17]
+weights: [3, 1, 5, 2]
+capacity: 7
+output: 98
+Explanation: Apple + Banana (total weight = 6) =&amp;gt; 98 profit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let’s try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;1. We take the first item: 31 + f([2,3,4], weight=3)  --|-- max
+2. We skip the first item: 0 + f([2,3,4], weight=0)   --|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;To achieve optimal substructure, we assume that at every step, we would take the first item or we skip it. Hence, if we take the first time, we add on the profit and also run a recursive function and pass in the remaining items and the weight that this item takes and hence &lt;code&gt;31 + f([2,3,4], weight=3)&lt;/code&gt;. If we skip the first item, we then run a recursive function, pass in the remaining items and since we skip the item, the weight is 0 and therefore &lt;code&gt;0 + f([2,3,4], weight=0)&lt;/code&gt;. By getting the max value of these 2 subproblems, we would then derive at our final answer.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def knapsack(profits: List[int], weights: List[int], capacity: int, index: int) -&amp;gt; int:
+    if index &amp;gt; len(profits)-1 or capacity == 0:
+      return 0
+
+    profit1: int = 0
+    if weights[index] &amp;lt;= capacity:
+      profit1 = profits[index] + knapsack(profits, weights, capacity-weights[index], index+1)
+
+    profit2: int = knapsack(profits, weights, capacity, index+1)
+
+    return max(profit1, profit2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; see if we need to optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                        knapsack(7, 0)
+                  /                       \
+            knapsack(4,1)               knapsack(7,1)
+            /          \               /             \
+    knapsack(3,1)  knapsack(4,2)   knapsack(6,2)   knapsack(7,2)
+    /          \
+base       knapsack(3,3)
+&lt;/pre&gt;
+
+&lt;p&gt;Since there are no recurrences of any computation, we don’t have to but still can apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 11 May 2020 00:00:00 +0800</pubDate>
+        <link>/zero-one-knapsack/</link>
+        <guid isPermaLink="true">/zero-one-knapsack/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Number Factor Problem</title>
+        <description>&lt;p&gt;Given &lt;strong&gt;N&lt;/strong&gt;, count the number of ways to express N as sum of &lt;strong&gt;1,3 and 4&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 1
+-----------
+n: 4
+num of ways: 4
+Explanation: There are four ways to express 'n': {4}, {1,3}, {3,1}, {1,1,1,1}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 2
+-----------
+n: 5
+num of ways: 6
+Explanation: There are six ways to express 'n': {4,1}, {1,4}, {3,1,1}, {1,3,1}, {1,1,3}, {1,1,1,1,1}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; algorithm techniques. Firstly, let’s try to break the problem into smaller subproblems. Since we are given 3 numbers, {1,3,4}, let’s try to find the complements of those numbers and also the number of ways to form those complements. We will use the example where &lt;strong&gt;N = 5&lt;/strong&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;n = 5
+
+1 | + 4 = {1,1,1,1}, {1,3}, {3,1}, {4} = 4 ways
+3 | + 2 = {1,1} = 1 way
+4 | + 1 = {1} = 1 way
+
+num of ways: 4 + 1 + 1 = 6
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;By solving the subproblems, we arrive at the final result by getting the sum of all the answers to the subproblems.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algorithm&quot;&gt;Code Algorithm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def num_ways(n: int) -&amp;gt; int:
+    if n == 0 or n == 1 or n == 2:
+      return 1
+    if n == 3:
+      return 2
+
+    comp1: int = num_ways(n-1)
+    comp2: int = num_ways(n-3)
+    comp3: int = num_ways(n-4)
+
+    return comp1 + comp2 + comp3
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; using &lt;strong&gt;N = 8&lt;/strong&gt; for a larger recursive tree and see if we can optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                  num_ways(8)
+      /               |                   \
+num_ways(7)        num_ways(5)        num_ways(4)
+  |                   |                   |
+  |-num_ways(6)       |-num_ways(4)       |-num_ways(3)
+  |-num_ways(4)       |-num_ways(2)       |-num_ways(1)
+  |-num_ways(3)       |-num_ways(1)       |-num_ways(0)
+&lt;/pre&gt;
+
+&lt;p&gt;We are computing a new of the subproblems more than once such as &lt;code&gt;num_ways(4)&lt;/code&gt;. We can then apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;top-down-approach&quot;&gt;Top Down Approach&lt;/h3&gt;
+
+&lt;p&gt;We will start off by applying &lt;code&gt;Top Down Approach&lt;/code&gt; (also known as &lt;code&gt;Memoization&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def num_ways(n: int) -&amp;gt; int:
+  if n == 0 or n == 1 or n == 2:
+    return 1
+  if n == 3:
+    return 2
+
+  if n not in dp:
+    comp1: int = num_ways(n-1)
+    comp2: int = num_ways(n-3)
+    comp3: int = num_ways(n-4)
+    dp[n] = comp1 + comp2 + comp3
+
+  return dp[n]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h3&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Let’s visualise how &lt;strong&gt;dp&lt;/strong&gt; is filled using &lt;code&gt;Top Down Approach&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;Iteration&lt;/th&gt;
+        &lt;th colspan=&quot;9&quot;&gt;Num of ways&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;DP0&lt;/th&gt;
+        &lt;th&gt;DP1&lt;/th&gt;
+        &lt;th&gt;DP2&lt;/th&gt;
+        &lt;th&gt;DP3&lt;/th&gt;
+        &lt;th&gt;DP4&lt;/th&gt;
+        &lt;th&gt;DP5&lt;/th&gt;
+        &lt;th&gt;DP6&lt;/th&gt;
+        &lt;th&gt;DP7&lt;/th&gt;
+        &lt;th&gt;DP8&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;4.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP4+DP2+DP1&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;5.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP3+DP1+DP0&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP4+DP2+DP1&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;6.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP4+DP2+DP1&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;7.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;8.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;9.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;9+4+2=15&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+DP4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;10.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;9+4+2=15&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;15+6+4=25&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can then now reverse the process. Let’s visualize how &lt;code&gt;Bottom Up Approach&lt;/code&gt; works here.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;Iteration&lt;/th&gt;
+        &lt;th colspan=&quot;9&quot;&gt;Num of ways&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;DP0&lt;/th&gt;
+        &lt;th&gt;DP1&lt;/th&gt;
+        &lt;th&gt;DP2&lt;/th&gt;
+        &lt;th&gt;DP3&lt;/th&gt;
+        &lt;th&gt;DP4&lt;/th&gt;
+        &lt;th&gt;DP5&lt;/th&gt;
+        &lt;th&gt;DP6&lt;/th&gt;
+        &lt;th&gt;DP7&lt;/th&gt;
+        &lt;th&gt;DP8&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP3+DP1+DP0&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP4+DP2+DP1&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;4.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;5.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP5+DP3+DP2&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;6.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;7.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP6+DP4+DP3&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;8.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;9+4+2=15&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;9.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;9+4+2=15&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;DP7+DP5+4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;9.&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;1&lt;/td&gt;
+        &lt;td&gt;2&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;2+1+1=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;4+1+1=6&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;6+2+1=9&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;9+4+2=15&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;15+6+4=25&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def num_ways(n: int) -&amp;gt; int:
+  dp = {
+    0: 1,
+    1: 1,
+    2: 1,
+    3: 2
+  }
+
+  for i in range(4, n+1):
+    dp[i] = dp[i-1] + dp[i-3] + dp[i-4]
+
+  return dp[n]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Mon, 11 May 2020 00:00:00 +0800</pubDate>
+        <link>/number-factor/</link>
+        <guid isPermaLink="true">/number-factor/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>Longest Palindromic Subsequence</title>
+        <description>&lt;p&gt;Given a string &lt;strong&gt;S&lt;/strong&gt;, we need to find the length of its &lt;strong&gt;Longest Palindromic Subsequence&lt;/strong&gt;. Palindrome is a string that reads the same backwards as well as forward and can be odd or even length. A subsequence is a sequence that can be derived from another string by &lt;em&gt;deleting some or no elements&lt;/em&gt; without &lt;strong&gt;changing the order&lt;/strong&gt; of the remaining elements.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 1
+-----------
+s: &quot;ELRMENMET&quot;
+output: 5
+Explanation: &quot;ELRMENMET&quot; =&amp;gt; &quot;EMEME&quot;
+              ^  ^^ ^^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 2
+-----------
+s: &quot;AMEEWMEA&quot;
+output: 6
+Explanation: &quot;AMEEWMEA&quot; =&amp;gt; &quot;AMEEMA&quot;
+              ^^^^ ^ ^
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving these subproblems, we will arrive at our final answer. Let’s try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;If the first and last character matches: 2 + f(1,8)      ---|---max
+If it doesn't match: max of [0 + f(0,8)] or [0 + f(1,9)] ---|
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For palindrome, the first and last character should be the same so that it reads the same from the front and the back. Hence, to achive optimal substructure, if the first and last character matches, our answer increases by 2 and we move on to the next characters, hence, &lt;code&gt;2 + f(1,8)&lt;/code&gt;. If it doesn’t match, we should then attempt to see if the next characters on both side matches and get the max value from it. Therefore, &lt;code&gt;max of [0 + f(0,8)] or [0 + f(1,9)]&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def lps(s: str, start: int, end: int) -&amp;gt; int:
+    if start &amp;gt; end:
+      return 0
+
+    if start == end:
+      return 1
+
+    count1 = 0
+    if s[start] == s[end]:
+      count1 = 2 + lps(s, start+1, end-1)
+
+    count2 = lps(s, start, end-1)
+    count3 = lps(s, start+1, end)
+
+    return max(count1, count2, count3)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; see if we need to optimise this solution.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                lps(0,3)
+    /               |               \
+  lps(0,2)        lps(1,3)        lps(1,2)
+  |                |                |
+  |-lps(1,2)       |-lps(2,3)       |-lps(2,2)
+  |-lps(0,1)       |-lps(1,2)       |-lps(1,1)
+  |-lps(1,1)       |-lps(2,2)       |-lps(2,1)
+&lt;/pre&gt;
+
+&lt;p&gt;We are computing a new of the subproblems more than once such as &lt;code&gt;lps(1,2)&lt;/code&gt;. We can then apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise the solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;top-down-approach&quot;&gt;Top Down Approach&lt;/h3&gt;
+
+&lt;p&gt;We will start off by applying &lt;code&gt;Top Down Approach&lt;/code&gt; (also known as &lt;code&gt;Memoization&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def lps(s: str, start: int, end: int) -&amp;gt; int:
+    if start &amp;gt; end:
+      return 0
+
+    if start == end:
+      return 1
+
+    if (start, end) not in dp:
+      count1 = 0
+      if s[start] == s[end]:
+        count1 = 2 + lps(s, start+1, end-1)
+
+      count2 = lps(s, start, end-1)
+      count3 = lps(s, start+1, end)
+
+      dp[start, end] = max(count1, count2, count3)
+
+    return dp[start, end]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h3&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Firstly, let’s start from looking at the &lt;code&gt;Top Down Approach&lt;/code&gt; using a matrix table.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot; colspan=&quot;2&quot;&gt;&lt;/th&gt;
+        &lt;th&gt;B1&lt;/th&gt;
+        &lt;th&gt;B2&lt;/th&gt;
+        &lt;th&gt;B3&lt;/th&gt;
+        &lt;th&gt;B4&lt;/th&gt;
+        &lt;th&gt;B5&lt;/th&gt;
+        &lt;th&gt;B6&lt;/th&gt;
+        &lt;th&gt;B7&lt;/th&gt;
+        &lt;th&gt;B8&lt;/th&gt;
+        &lt;th&gt;B9&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;th&gt;L&lt;/th&gt;
+        &lt;th&gt;R&lt;/th&gt;
+        &lt;th&gt;M&lt;/th&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;th&gt;N&lt;/th&gt;
+        &lt;th&gt;M&lt;/th&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;th&gt;T&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A1&lt;/th&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A1B1,A2B2)&lt;/td&gt;
+        &lt;td&gt;max(0,A1B2,A2B3)&lt;/td&gt;
+        &lt;td&gt;max(0,A1B3,A2B4)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(2+A2B4,A1B4,A2B5)&lt;/td&gt;
+        &lt;td&gt;max(0,A1B5,A2B6)&lt;/td&gt;
+        &lt;td&gt;max(0,A1B6,A2B7)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(2+A2B7,A1B7,A2B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A1B8,A2B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A2&lt;/th&gt;
+        &lt;th&gt;L&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A2B2,A3B3)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B3,A3B4)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B4,A3B5)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B5,A3B6)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B6,A3B7)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B7,A3B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A2B8,A3B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A3&lt;/th&gt;
+        &lt;th&gt;R&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A3B3,A4B4)&lt;/td&gt;
+        &lt;td&gt;max(0,A3B4,A4B5)&lt;/td&gt;
+        &lt;td&gt;max(0,A3B5,A4B6)&lt;/td&gt;
+        &lt;td&gt;max(0,A3B6,A4B7)&lt;/td&gt;
+        &lt;td&gt;max(0,A3B7,A4B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A3B8,A4B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A4&lt;/th&gt;
+        &lt;th&gt;M&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A4B4,A5B5)&lt;/td&gt;
+        &lt;td&gt;max(0,A4B5,A5B6)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(2+A5B6,A4B6,A5B7)&lt;/td&gt;
+        &lt;td&gt;max(0,A4B7,A5B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A4B8,A5B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A5&lt;/th&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A5B5,A6B6)&lt;/td&gt;
+        &lt;td&gt;max(0,A5B6,A6B7)&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(2+A6B7,A5B7,A6B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A5B8,A6B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A6&lt;/th&gt;
+        &lt;th&gt;N&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A6B6,A7B7)&lt;/td&gt;
+        &lt;td&gt;max(0,A6B7,A7B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A6B8,A7B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A7&lt;/th&gt;
+        &lt;th&gt;M&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A7B7,A8B8)&lt;/td&gt;
+        &lt;td&gt;max(0,A7B8,A8B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A8&lt;/th&gt;
+        &lt;th&gt;E&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+        &lt;td&gt;max(0,A8B8,A9B9)&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;A9&lt;/th&gt;
+        &lt;th&gt;T&lt;/th&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;1&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We then need to find the cell which doesn’t have any dependency as our starting point as we will have our first answer there. That would be the last cell &lt;code&gt;A9B9&lt;/code&gt;. And we slowly move our way up to the rest of the cells until we reach cell &lt;code&gt;A1B9&lt;/code&gt; which will give us our final answer.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;B8&lt;/code&gt;, &lt;code&gt;A6&lt;/code&gt; rows and columns are our base conditions where we return &lt;strong&gt;0&lt;/strong&gt;.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def lps(s: str) -&amp;gt; int:
+  dp = {}
+
+  for col in range(len(s)):
+    for row in range(len(s)-1, -1, -1):
+      if row &amp;gt; col:
+        dp[row, col] = 0
+      elif row == col:
+        dp[row, col] = 1
+      else:
+        if s[row] == s[col]:
+          dp[row, col] = max(2+dp[row+1, col-1], dp[row, col-1], dp[row+1, col])
+        else:
+          dp[row, col] = max(dp[row, col-1], dp[row+1, col])
+
+  return dp[0, len(s)-1]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Mon, 11 May 2020 00:00:00 +0800</pubDate>
+        <link>/longest-palindromic-subsequence/</link>
+        <guid isPermaLink="true">/longest-palindromic-subsequence/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
+      <item>
+        <title>House Thief Problem</title>
+        <description>&lt;p&gt;There are &lt;strong&gt;n&lt;/strong&gt; houses built in a line, each containing some value. A thief is going to steal the &lt;strong&gt;maximum&lt;/strong&gt; value from these houses. However, he can’t steal in &lt;strong&gt;2 adjacent&lt;/strong&gt; houses. What is the maximum stolen value?&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 1
+-----------
+n: [6, 7, 1, 30, 8, 2, 4]
+max value: 41
+Explanation: Thief will steal from houses with 7, 30, 4.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;Example 2
+-----------
+n: [20, 5, 1, 13, 6, 11, 40]
+max value: 73
+Explanation: Thief will steal from houses with 20, 13, 40.
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;solution&quot;&gt;Solution&lt;/h2&gt;
+
+&lt;p&gt;This problem can be solved by applying &lt;code&gt;Divide and Conquer&lt;/code&gt; to break down the problem into smaller subproblems. Thus, by solving this subproblems, we will arrive at our final answer. Let’s look at &lt;strong&gt;Example 1&lt;/strong&gt; and try to derive the subproblems.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-text&quot;&gt;f(7 houses) = max of [6 + f(remaining 5 houses)] or [0 + f(6 remaining 6 houses)]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So, what the above subproblems are saying is that, since we can’t steal from two adjacent houses, the thief can either steal from the first house, and then skip the second house and move on to the other remaining 5 houses given that we have 7 houses in total. Hence &lt;code&gt;6 + f(remaining 5 houses)&lt;/code&gt;. Or, the thief can skip the first house and steal from the remaining 6 houses, and hence, &lt;code&gt;0 + f(remaining 6 houses)&lt;/code&gt;. We’re looking for the maximum value which the thief can steal. Therefore, we want to find the maximum value returned from the two subproblems.&lt;/p&gt;
+
+&lt;h2 id=&quot;code-algortihm&quot;&gt;Code Algortihm&lt;/h2&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def steal_money(n: List[int], i: int) -&amp;gt; int:
+    if i &amp;gt;= len(n):
+      return 0
+
+    money1 = n[i] + steal_money(n, i+2)
+    money2 = steal_money(n, i+1)
+
+    return max(money1, money2)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&quot;optimisation&quot;&gt;Optimisation&lt;/h2&gt;
+
+&lt;p&gt;Let’s look at the an example of the &lt;strong&gt;recursion tree&lt;/strong&gt; to examine whether we need to optimise it.&lt;/p&gt;
+
+&lt;pre class=&quot;p-5 text-white bg-dark&quot;&gt;
+                                                        steal_money(0)
+                                                      /                 \
+                                                  /                         \
+                                              /                                 \
+                                          /                                         \
+                                      /                                                 \
+                                steal_money(2)                                        steal_money(1)
+                        /                           \                                 /             \
+                steal_money(4)                  steal_money(3)                   steal_money(3)   steal_money(2)
+                /             \                 /           \                    /            \
+          steal_money(6)  steal_money(5)  steal_money(5)  steal_money(4)   steal_money(5)   steal_money(4)
+        /             \
+steal_money(8)    steal_money(7)
+&lt;/pre&gt;
+
+&lt;p&gt;We can see from the above recursion tree that &lt;code&gt;steal_money(3)&lt;/code&gt;, &lt;code&gt;steal_money(4)&lt;/code&gt; and &lt;code&gt;steal_money(5)&lt;/code&gt; have been computed multiple times. Hence, we can apply &lt;code&gt;Dynamic Programming&lt;/code&gt; to optimise this solution.&lt;/p&gt;
+
+&lt;h3 id=&quot;top-down-approach&quot;&gt;Top Down Approach&lt;/h3&gt;
+
+&lt;p&gt;We will start off by applying &lt;code&gt;Top Down Approach&lt;/code&gt; (also known as &lt;code&gt;Memoization&lt;/code&gt;).&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;dp = {}
+
+def steal_money(n: List[int], i: int) -&amp;gt; int:
+    if i &amp;gt;= len(n):
+      return 0
+
+    if i not in dp:
+      money1 = n[i] + steal_money(n, i+2)
+      money2 = steal_money(n, i+1)
+      dp[i] = max(money1, money2)
+
+    return dp[i]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&quot;bottom-up-approach&quot;&gt;Bottom Up Approach&lt;/h3&gt;
+
+&lt;p&gt;We can now then apply some reverse engineer to use the &lt;code&gt;Bottom Up Approach&lt;/code&gt; (also known as &lt;code&gt;Tabulation&lt;/code&gt;). Let’s visualise how &lt;strong&gt;dp&lt;/strong&gt; is filled using &lt;code&gt;Top Down Approach&lt;/code&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;Iteration&lt;/th&gt;
+        &lt;th colspan=&quot;8&quot;&gt;Steal Money&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;DP0&lt;/th&gt;
+        &lt;th&gt;DP1&lt;/th&gt;
+        &lt;th&gt;DP2&lt;/th&gt;
+        &lt;th&gt;DP3&lt;/th&gt;
+        &lt;th&gt;DP4&lt;/th&gt;
+        &lt;th&gt;DP5&lt;/th&gt;
+        &lt;th&gt;DP6&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;4.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;5.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;6.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;7.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H5+DP[7],DP[6])&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;8.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H5+DP[7],DP[6])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H6+DP[8],DP[7])&lt;/td&gt;
+      &lt;/tr&gt;
+       &lt;tr&gt;
+        &lt;td&gt;9.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H5+DP[7],DP[6])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;10.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;11.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;12.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;13.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;14.&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H0+DP[2],DP[1])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(7+34,34)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;15.&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(6+34,41)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(7+34,34)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;p&gt;We can then now reverse the process. Let’s visualize how &lt;code&gt;Bottom Up Approach&lt;/code&gt; works here.&lt;/p&gt;
+
+&lt;div class=&quot;table-responsive&quot;&gt;
+  &lt;table class=&quot;table table-dark table-striped table-sm table-bordered&quot;&gt;
+    &lt;thead&gt;
+      &lt;tr&gt;
+        &lt;th rowspan=&quot;2&quot;&gt;Iteration&lt;/th&gt;
+        &lt;th colspan=&quot;8&quot;&gt;Steal Money&lt;/th&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;th&gt;DP0&lt;/th&gt;
+        &lt;th&gt;DP1&lt;/th&gt;
+        &lt;th&gt;DP2&lt;/th&gt;
+        &lt;th&gt;DP3&lt;/th&gt;
+        &lt;th&gt;DP4&lt;/th&gt;
+        &lt;th&gt;DP5&lt;/th&gt;
+        &lt;th&gt;DP6&lt;/th&gt;
+        &lt;th&gt;DP7&lt;/th&gt;
+        &lt;th&gt;DP8&lt;/th&gt;
+      &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+      &lt;tr&gt;
+        &lt;td&gt;1.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H6+DP[8],DP[7])&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;2.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H5+DP[7],DP[6])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;3.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;4.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H4+DP[6],DP[5])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;5.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;6.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H3+DP[5],DP[4])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;7.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;8.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H2+DP[4],DP[3])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;9.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;10.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-warning&quot;&gt;max(H1+DP[3],DP[2])&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;11.&lt;/td&gt;
+        &lt;td class=&quot;bg-danger&quot;&gt;?&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(7+34,34)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+        &lt;td&gt;12.&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(6+34,41)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(7+34,34)=41&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(1+12,34)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(30+4,12)=34&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(8+4,4)=12&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(2+0,4)=4&lt;/td&gt;
+        &lt;td class=&quot;bg-success&quot;&gt;max(4+0,0)=4&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+        &lt;td&gt;0&lt;/td&gt;
+      &lt;/tr&gt;
+    &lt;/tbody&gt;
+  &lt;/table&gt;
+&lt;/div&gt;
+
+&lt;pre&gt;&lt;code class=&quot;language-py3&quot;&gt;def steal_money(n: List[int]) -&amp;gt; int:
+  dp = {}
+
+  for i in range(len(n)+1, -1, -1):
+    if i &amp;gt; len(n) - 1:
+      dp[i] = 0
+    else:
+      dp[i] = max(n[i] + dp[i+2], dp[i+1])
+
+  return dp[0]
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+        <pubDate>Mon, 11 May 2020 00:00:00 +0800</pubDate>
+        <link>/house-thief/</link>
+        <guid isPermaLink="true">/house-thief/</guid>
+        
+        <category>Divide and Conquer</category>
+        
+        <category>Dynamic Programming</category>
+        
+        <category>Data Structures and Algorithm</category>
+        
+        
+        <category>Software Engineering</category>
+        
+      </item>
+    
   </channel>
 </rss>

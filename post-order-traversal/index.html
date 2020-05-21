@@ -6,17 +6,21 @@
 
 <link rel="icon" href="/assets/images/favicon.png">
 
-<title>Home | A 80% debugging, 20% coding programmer life</title>
+<title>Post-order Traversal | A 80% debugging, 20% coding programmer life</title>
 
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Home | A 80% debugging, 20% coding programmer life</title>
+<title>Post-order Traversal | A 80% debugging, 20% coding programmer life</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Home" />
+<meta property="og:title" content="Post-order Traversal" />
+<meta name="author" content="jazz" />
 <meta property="og:locale" content="en_US" />
+<meta name="description" content="Lets look at the 4 options to traverse a binary tree:" />
+<meta property="og:description" content="Lets look at the 4 options to traverse a binary tree:" />
 <meta property="og:site_name" content="A 80% debugging, 20% coding programmer life" />
-<link rel="next" href="/page2/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-20T00:00:00+08:00" />
 <script type="application/ld+json">
-{"url":"/","headline":"Home","name":"A 80% debugging, 20% coding programmer life","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"/post-order-traversal/","headline":"Post-order Traversal","datePublished":"2020-05-20T00:00:00+08:00","dateModified":"2020-05-20T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/post-order-traversal/"},"author":{"@type":"Person","name":"jazz"},"description":"Lets look at the 4 options to traverse a binary tree:","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -81,7 +85,7 @@
 <!-- End Sidebar Navigation
 ================================================== -->
 
-<div class="site-content  firstpage ">
+<div class="site-content ">
 
 <div class="container">
 
@@ -98,63 +102,227 @@
     <!-- Content
     ================================================== -->
     <div class="main-content">
-        <!-- Posts Index
-================================================== -->
-<div class="blog-grid-container">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">Post-order Traversal</h1>
+    <!-- Author & Date  Box -->
     
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
             
-                style="background-color: #4e5199;"
+            <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
             
-        >
-            <a
-                href="/post-order-traversal/"
-                
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Post-order Traversal
-                
-            </a>
-        </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/post-order-traversal/">Post-order Traversal</a>
-                
-            </h2>
-            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
-</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">20 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://www.linkedin.com/in/jazz-peh">Jazz</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-05-20">20 May 2020</time></span>           
+        
+        </div>            
     </div>
-</div>
-<!-- end post -->
     
-        <!-- begin post -->
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<article class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>Lets look at the 4 options to traverse a binary tree:</p>
+
+<ul>
+  <li>Depth First Search
+    <ul>
+      <li><a href="/pre-order-traversal/">Pre-order</a></li>
+      <li><a href="/in-order-traversal/">In-order</a></li>
+      <li>Post-order</li>
+    </ul>
+  </li>
+  <li>Breadth First Search
+    <ul>
+      <li>Level-order</li>
+    </ul>
+  </li>
+</ul>
+
+<p>In this post, let’s explore <code>Post-order</code> traversal.</p>
+
+<h2 id="visualise-how-it-traverse">Visualise how it traverse</h2>
+
+<p>We first visit the <code>Left Subtree</code>, then the <code>Right subtree</code> and lastly, the <code>Root</code>.</p>
+
+<pre><code class="language-text">               20
+             /    \
+          /         \
+        100         3
+      /     \     /   \
+    50      15  250   35
+  /
+222
+
+r = root
+lt = left subtree
+rt = right subtree
+
+1. (lt)(rt)r
+2. ((lt)(rt)r)(rt)20
+3. ((lt)(rt)100)(rt)20
+4. (((lt)(rt)r)(rt)100)(rt)20
+5. (((lt)(rt)50)(rt)100)(rt)20
+6. (((222)50)(rt)100)(rt)20
+7. (((222)50)(15)100)(rt)20
+8. (((222)50)(15)100)((lt)(rt)r)20
+9. (((222)50)(15)100)((lt)(rt)3)20
+10. (((222)50)(15)100)((250)(35)3)20
+
+Answer: 222, 50, 15, 100, 250, 35, 3, 20
+
+</code></pre>
+
+<h2 id="code-algorithm">Code Algorithm</h2>
+
+<p>Here’s the code example to implmenent a <code>Post-order</code>traversal.</p>
+
+<pre><code class="language-py3"># Definition for binary node.
+# class BinaryNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+
+def post_order(root: BinaryNode) -&gt; None:
+  if not root:
+    throw Error()
+  else:
+    post_order(root.left)
+    post_order(root.right)
+    print(root.val)
+</code></pre>
+
+</article>
+
+<!-- Rating -->
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+ 
+<div class="comments">
+    <button class="btn btn-dark show-comments">Load Comments</button>         
+    <div id="comments">  
+        <h4 class="mb-4">Comments</h4>                 
+            <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'demowebsite'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+     
+    <div class="clearfix"></div>              
+    </div>    
+</div>       
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Post-order Traversal&url=/post-order-traversal/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=/post-order-traversal/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=/post-order-traversal/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Software-Engineering">Software Engineering</a>
+    
+
+    <!-- Tags -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Binary-Tree">Binary Tree</a>
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Data-Structures-and-Algorithm">Data Structures and Algorithm</a>
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+
+            
+            
+
+            
+
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -164,7 +332,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #d7d732;"
+                style="background-color: #62f9df;"
             
         >
             <a
@@ -205,8 +373,19 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -216,7 +395,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #8cc771;"
+                style="background-color: #1b546e;"
             
         >
             <a
@@ -257,8 +436,19 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -268,7 +458,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #23d529;"
+                style="background-color: #b48a0c;"
             
         >
             <a
@@ -308,147 +498,15 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
             
-                style="background-color: #15d7e2;"
             
-        >
-            <a
-                href="/min-cost-to-reach-last-cell-in-2d-array/"
                 
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Min cost to reach last cell in 2D Array
-                
-            </a>
         </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/min-cost-to-reach-last-cell-in-2d-array/">Min cost to reach last cell in 2D Array</a>
-                
-            </h2>
-            <h4 class="card-text">Given a (n,n) 2D matrix, we need to start from (0,0) cell and go till (n-1,n-1) cell. Assuming that each cell has a cost associated and we can only go...</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">12 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end post -->
-    
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
-            
-                style="background-color: #3f444c;"
-            
-        >
-            <a
-                href="/longest-palindromic-substring/"
-                
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Longest Palindromic Substring
-                
-            </a>
-        </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/longest-palindromic-substring/">Longest Palindromic Substring</a>
-                
-            </h2>
-            <h4 class="card-text">Given a string S, we need to find length of its Longest Palindromic Substring. Palindrome is a string that reads the same backwards as well as forward and can be...</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">12 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end post -->
-    
 </div>
 
-<!-- Pagination
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
 ================================================== -->
-<div class="bottompagination">
-<span class="navigation" role="navigation">
-    
-<div class="pagination">
-  
-    <span>&laquo; </span>
-  
-
-  
-    
-      <span class="ml-1 mr-1">1</span>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page2/">2</a>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page3/">3</a>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page4/">4</a>
-    
-  
-
-  
-    <a class="ml-1 mr-1" href="/page2/"> &raquo;</a>
-  
-</div>
-
-</span>
-</div>
-
 
     </div>
 
@@ -492,6 +550,8 @@
 
 
 
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
 
 
 <script type="text/javascript" src="/assets/js/main.js" async></script>

@@ -6,17 +6,21 @@
 
 <link rel="icon" href="/assets/images/favicon.png">
 
-<title>Home | A 80% debugging, 20% coding programmer life</title>
+<title>Breadth First Search | A 80% debugging, 20% coding programmer life</title>
 
 <!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Home | A 80% debugging, 20% coding programmer life</title>
+<title>Breadth First Search | A 80% debugging, 20% coding programmer life</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Home" />
+<meta property="og:title" content="Breadth First Search" />
+<meta name="author" content="jazz" />
 <meta property="og:locale" content="en_US" />
+<meta name="description" content="BFS is an algorithm for traversing Graph data structures. It starts at some arbitrary node of a graph and explores the neighbour nodes (which are at current level) first, before moving to the next level neighbours." />
+<meta property="og:description" content="BFS is an algorithm for traversing Graph data structures. It starts at some arbitrary node of a graph and explores the neighbour nodes (which are at current level) first, before moving to the next level neighbours." />
 <meta property="og:site_name" content="A 80% debugging, 20% coding programmer life" />
-<link rel="next" href="/page2/" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-29T00:00:00+08:00" />
 <script type="application/ld+json">
-{"url":"/","headline":"Home","name":"A 80% debugging, 20% coding programmer life","@type":"WebSite","@context":"https://schema.org"}</script>
+{"url":"/breadth-first-search/","headline":"Breadth First Search","datePublished":"2020-04-29T00:00:00+08:00","dateModified":"2020-04-29T00:00:00+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"/breadth-first-search/"},"author":{"@type":"Person","name":"jazz"},"description":"BFS is an algorithm for traversing Graph data structures. It starts at some arbitrary node of a graph and explores the neighbour nodes (which are at current level) first, before moving to the next level neighbours.","@type":"BlogPosting","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -81,7 +85,7 @@
 <!-- End Sidebar Navigation
 ================================================== -->
 
-<div class="site-content  firstpage ">
+<div class="site-content ">
 
 <div class="container">
 
@@ -98,11 +102,180 @@
     <!-- Content
     ================================================== -->
     <div class="main-content">
-        <!-- Posts Index
-================================================== -->
-<div class="blog-grid-container">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">Breadth First Search</h1>
+    <!-- Author & Date  Box -->
     
-        <!-- begin post -->
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
+            
+            <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+            
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://www.linkedin.com/in/jazz-peh">Jazz</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-04-29">29 Apr 2020</time></span>           
+        
+        </div>            
+    </div>
+    
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<article class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>BFS is an algorithm for traversing Graph data structures. It starts at some arbitrary node of a graph and explores the neighbour nodes (which are at current level) first, before moving to the next level neighbours.</p>
+
+<p>In the easiest possible way to explain:</p>
+
+<canvas id="bfs" class="code-aid"></canvas>
+
+<h2 id="code-algorithm">Code algorithm</h2>
+
+<p>For BFS, we utilise <code>queue</code> to help with the operations.</p>
+
+<pre><code class="language-py3">def bfs(graph):
+  queue = Queue()
+
+  for node in graph:
+    if not node.isVisited:
+      continue
+
+    queue.enqueue(node)
+
+    while not queue.is_empty():
+      current_node = queue.dequeue()
+      if current_node.isVisited: continue
+
+      current_node.isVisited = True
+      print(current_node.value)
+
+      for neighbour in current_node.neighbours:
+        if neighbour.isVisited: continue
+        queue.enqueue(neighbour)
+</code></pre>
+
+<p>For time and space complexity, check out my post on <a href="/run-time-complexity/#common-operations">Run Time Complexity</a>.</p>
+
+</article>
+
+<!-- Rating -->
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+ 
+<div class="comments">
+    <button class="btn btn-dark show-comments">Load Comments</button>         
+    <div id="comments">  
+        <h4 class="mb-4">Comments</h4>                 
+            <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'demowebsite'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+     
+    <div class="clearfix"></div>              
+    </div>    
+</div>       
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=Breadth First Search&url=/breadth-first-search/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=/breadth-first-search/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=/breadth-first-search/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Software-Engineering">Software Engineering</a>
+    
+
+    <!-- Tags -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Data-Structures-and-Algorithm">Data Structures and Algorithm</a>
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Graph">Graph</a>
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -112,7 +285,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #4e5199;"
+                style="background-color: #4730bc;"
             
         >
             <a
@@ -153,8 +326,19 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -164,7 +348,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #d7d732;"
+                style="background-color: #d3ea0a;"
             
         >
             <a
@@ -205,8 +389,19 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
 
 
 
@@ -216,7 +411,7 @@
         <div
             class="maxthumb no-hero"
             
-                style="background-color: #8cc771;"
+                style="background-color: #144b17;"
             
         >
             <a
@@ -257,198 +452,15 @@
     </div>
 </div>
 <!-- end post -->
-    
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
             
-                style="background-color: #23d529;"
             
-        >
-            <a
-                href="/number-of-paths-to-reach-last-cell/"
                 
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Number of paths to reach last cell
-                
-            </a>
         </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/number-of-paths-to-reach-last-cell/">Number of paths to reach last cell</a>
-                
-            </h2>
-            <h4 class="card-text">Given a (n,n) 2D matrix and a total cost to reach the destination cell, we need to start from (0,0) cell and go till (n-1,n-1) cell. Assuming that each cell...</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">12 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end post -->
-    
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
-            
-                style="background-color: #15d7e2;"
-            
-        >
-            <a
-                href="/min-cost-to-reach-last-cell-in-2d-array/"
-                
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Min cost to reach last cell in 2D Array
-                
-            </a>
-        </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/min-cost-to-reach-last-cell-in-2d-array/">Min cost to reach last cell in 2D Array</a>
-                
-            </h2>
-            <h4 class="card-text">Given a (n,n) 2D matrix, we need to start from (0,0) cell and go till (n-1,n-1) cell. Assuming that each cell has a cost associated and we can only go...</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">12 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end post -->
-    
-        <!-- begin post -->
-
-
-
-
-<div class="blog-grid-item">
-    <div class="card h-100 w-100">
-        <div
-            class="maxthumb no-hero"
-            
-                style="background-color: #3f444c;"
-            
-        >
-            <a
-                href="/longest-palindromic-substring/"
-                
-                    style="color: #ffffff;"
-                
-            >
-                
-                    Longest Palindromic Substring
-                
-            </a>
-        </div>
-        <div class="card-body">
-            <h2 class="card-title">
-                <a class="text-dark" href="/longest-palindromic-substring/">Longest Palindromic Substring</a>
-                
-            </h2>
-            <h4 class="card-text">Given a string S, we need to find length of its Longest Palindromic Substring. Palindrome is a string that reads the same backwards as well as forward and can be...</h4>
-        </div>
-        <div class="card-footer bg-white">
-            <div class="wrapfooter">
-                
-                <span class="meta-footer-thumb">
-                
-                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
-                
-                </span>
-                <span class="author-meta">
-                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
-                
-                <span class="post-date">12 May 2020</span>
-                </span>
-                <div class="clearfix"></div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end post -->
-    
 </div>
 
-<!-- Pagination
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
 ================================================== -->
-<div class="bottompagination">
-<span class="navigation" role="navigation">
-    
-<div class="pagination">
-  
-    <span>&laquo; </span>
-  
-
-  
-    
-      <span class="ml-1 mr-1">1</span>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page2/">2</a>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page3/">3</a>
-    
-  
-    
-      <a class="ml-1 mr-1" href="/page4/">4</a>
-    
-  
-
-  
-    <a class="ml-1 mr-1" href="/page2/"> &raquo;</a>
-  
-</div>
-
-</span>
-</div>
-
 
     </div>
 
@@ -492,6 +504,8 @@
 
 
 
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
 
 
 <script type="text/javascript" src="/assets/js/main.js" async></script>
