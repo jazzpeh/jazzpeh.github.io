@@ -34,8 +34,6 @@ plugins:
   - jekyll-archives
   - jekyll-figure
 
-plugins_dir: ./_plugins
-
 # Archives
 jekyll-archives:
   enabled:
@@ -82,6 +80,5 @@ gist:
 kramdown:
   math_engine: mathjax
   syntax_highlighter: rouge
-error_mode: warn
 
 exclude: [changelog.md, LICENSE.txt, README.md, Gemfile, Gemfile.lock, node_modules]
