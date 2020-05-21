@@ -1,0 +1,1355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/favicon.png">
+
+<title>A cheat guide to run time complexity | A 80% debugging, 20% coding programmer life</title>
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>A cheat guide to run time complexity | A 80% debugging, 20% coding programmer life</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="A cheat guide to run time complexity" />
+<meta name="author" content="jazz" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="This guide is curated to help prepare for technical interviews. I’ve complied all the useful information including how to calculate the complexity in this guide." />
+<meta property="og:description" content="This guide is curated to help prepare for technical interviews. I’ve complied all the useful information including how to calculate the complexity in this guide." />
+<meta property="og:site_name" content="A 80% debugging, 20% coding programmer life" />
+<meta property="og:image" content="/assets/images/bigo.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-04-28T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"/run-time-complexity/","headline":"A cheat guide to run time complexity","dateModified":"2020-04-28T00:00:00+08:00","datePublished":"2020-04-28T00:00:00+08:00","author":{"@type":"Person","name":"jazz"},"mainEntityOfPage":{"@type":"WebPage","@id":"/run-time-complexity/"},"description":"This guide is curated to help prepare for technical interviews. I’ve complied all the useful information including how to calculate the complexity in this guide.","image":"/assets/images/bigo.jpg","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link href="/assets/css/prism.css" rel="stylesheet">
+
+<link href="/assets/css/theme.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body>
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+<!-- Begin Sidebar Navigation
+================================================== -->
+
+<div class="sidebar">
+</div>
+<div class="nav-icon">
+    <div class="hamburger-bar"></div>
+</div>
+<div id="blackover-nav" class="blackover"></div>
+<nav id="menu">
+    <ul>
+        <h3>Navigation</h3>
+        <li><a href="/">Home</a></li>
+        <li><a href="/categories">Categories</a></li>
+        <li><a href="/tags">Tags</a></li>
+    </ul>
+</nav>
+
+<script src="/assets/js/lunr.js"></script>
+
+<style>
+    
+</style>
+
+<div class="wrap-search">
+    <div class="d-flex align-items-center ml-auto">
+        <i class="fas fa-search show-search"></i>
+        <form class="bd-search ml-3" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+            <input type="text" class="form-control bigradius text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+        </form>
+    </div>
+</div>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+
+<!-- End Sidebar Navigation
+================================================== -->
+
+<div class="site-content ">
+
+<div class="container">
+
+    <!-- Site Logo/Name
+    ================================================== -->
+
+    
+
+
+    <!-- Site Tag
+    ================================================== -->
+    
+
+    <!-- Content
+    ================================================== -->
+    <div class="main-content">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">A cheat guide to run time complexity</h1>
+    <!-- Author & Date  Box -->
+    
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
+            
+            <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+            
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://www.linkedin.com/in/jazz-peh">Jazz</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-04-28">28 Apr 2020</time></span>           
+        
+        </div>            
+    </div>
+    
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+<div class="entry-featured-image">
+    
+    <img class="featured-image " src="/assets/images/bigo.jpg" alt="A cheat guide to run time complexity">
+    
+</div>
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<article class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>This guide is curated to help prepare for technical interviews. I’ve complied all the useful information including how to calculate the complexity in this guide.</p>
+
+<h2 id="table-of-contents">Table of contents</h2>
+
+<ul>
+  <li><a href="#big-o-complexity-chart">Big-O Complexity Chart</a></li>
+  <li><a href="#common-data-structure-operations">Common Data Structure Operations</a>
+    <ul>
+      <li><a href="#physical-data-structures">Physical Data Structures</a>
+        <ul>
+          <li><a href="#array">Array</a></li>
+          <li><a href="#linked-list">Linked List</a></li>
+        </ul>
+      </li>
+      <li><a href="#logical-data-structures">Logical Data Structures</a>
+        <ul>
+          <li><a href="#stack">Stack</a></li>
+          <li><a href="#queue">Queue</a></li>
+          <li><a href="#tree">Tree</a>
+            <ul>
+              <li><a href="#binary-tree">Binary Tree</a></li>
+              <li><a href="#binary-search-tree--avl-tree">Binary Search Tree &amp; AVL Tree</a></li>
+            </ul>
+          </li>
+          <li><a href="#heap-using-array">Heap (Using Array)</a></li>
+          <li><a href="#hash-table">Hash Table</a></li>
+          <li><a href="#graphs">Graphs</a>
+            <ul>
+              <li><a href="#common-operations">Common Operations</a></li>
+              <li><a href="#common-algorithms-for-graph-problems">Common Algorithms for Graph problems</a></li>
+            </ul>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li><a href="#sorting-algorithms">Sorting Algorithms</a></li>
+  <li><a href="#how-to-find-time-complexity">How to find time complexity</a>
+    <ul>
+      <li><a href="#iterative">Iterative</a></li>
+      <li><a href="#recursive-1">Recursive #1</a></li>
+      <li><a href="#recursive-2">Recursive #2</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="big-o-complexity-chart">Big-O Complexity Chart</h2>
+
+<p><img src="/assets/images/chart.svg" alt="Big-O Complexity Chart" /></p>
+
+<blockquote>
+  <p>Disclaimer: I didn’t create this chart, it’s adapted from https://www.bigocheatsheet.com/. All credits goes to <a href="https://twitter.com/ericdrowell">Eric</a>.</p>
+</blockquote>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th>Types</th>
+        <th>Name</th>
+        <th>Example</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>O(1)</code></td>
+        <td>Constant</td>
+        <td>Adding an element at front of linked list</td>
+      </tr>
+      <tr>
+        <td><code>O(log n)</code></td>
+        <td>Logarithmic</td>
+        <td>Finding an element in sorted array</td>
+      </tr>
+      <tr>
+        <td><code>O(n)</code></td>
+        <td>Linear</td>
+        <td>Finding an element in unsorted array</td>
+      </tr>
+      <tr>
+        <td><code>O(n log n)</code></td>
+        <td>Linear Logarithmic</td>
+        <td>Merge Sort</td>
+      </tr>
+      <tr>
+        <td><code>O(n<sup>2</sup>)</code></td>
+        <td>Quadratic</td>
+        <td>Shortest path between 2 nodes in a graph</td>
+      </tr>
+      <tr>
+        <td><code>O(n<sup>3</sup>)</code></td>
+        <td>Cubic</td>
+        <td>Matrix Multiplication</td>
+      </tr>
+      <tr>
+        <td><code>O(2<sup>n</sup>)</code></td>
+        <td>Exponential</td>
+        <td>Tower of Hanoi Problem</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="common-data-structure-operations">Common Data Structure Operations</h2>
+
+<p>Below are some common data structure and their operation time and space complexity.</p>
+
+<h3 id="physical-data-structures">Physical Data Structures</h3>
+
+<p>There are two types of physical data structures, <strong>array</strong> and <strong>linked list</strong>.</p>
+
+<h4 id="array">Array</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">1D Array</th>
+        <th colspan="2">2D Array</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>create()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(mn)</code></td>
+      </tr>
+      <tr>
+        <td>insert()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>traverse()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(mn)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>access[n]</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>search()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(mn)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>delete()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="linked-list">Linked List</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">Single Linked List</th>
+        <th colspan="2">Double Linked List</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>create()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>insert()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>traverse()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>search()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>deleteNode()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>deleteList()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h3 id="logical-data-structures">Logical Data Structures</h3>
+
+<p>Below are some common types of logical data structures.</p>
+
+<h4 id="stack">Stack</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">using Array</th>
+        <th colspan="2">using Linked List</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>createStack()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>push()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>pop()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>peek()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>isEmpty()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>isFull()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>N/A</code></td>
+        <td><code>N/A</code></td>
+      </tr>
+      <tr>
+        <td>deleteStack()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="queue">Queue</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">using Array</th>
+        <th colspan="2">using Linked List</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>createQueue()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>enqueue()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>dequeue()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>peek()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>isEmpty()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>isFull()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>N/A</code></td>
+        <td><code>N/A</code></td>
+      </tr>
+      <tr>
+        <td>deleteQueue()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="tree">Tree</h4>
+
+<h5 id="binary-tree">Binary Tree</h5>
+
+<p>The table below shows the implementation between Array and Linked List for Binary Tree.</p>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">using Array</th>
+        <th colspan="2">using Linked List</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>createTree()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>insert()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>delete()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>search()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>traverse()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>deleteTree()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<blockquote>
+  <p>Using Linked List is more space efficient as creating a binary tree is O(1) as compared to Array which is O(n), hence, the preferred implementation is Linked List.</p>
+</blockquote>
+
+<h5 id="binary-search-tree--avl-tree">Binary Search Tree &amp; AVL Tree</h5>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="3">Operations</th>
+        <th colspan="4">Binary Search Tree</th>
+        <th rowspan="2" colspan="2">AVL Tree</th>
+      </tr>
+      <tr>
+        <th colspan="2">Avg.</th>
+        <th colspan="2">Worst</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>createTree()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>search()</td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+      </tr>
+      <tr>
+        <td>traverse()</td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>insertNode()</td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+      </tr>
+      <tr>
+        <td>deleteNote()</td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+      </tr>
+      <tr>
+        <td>deleteTree()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="heap-using-array">Heap (Using Array)</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th>Operations</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>createHeap()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>peekTopOfHeap()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>sizeOfHeap()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+      <tr>
+        <td>insertValue()</td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+      </tr>
+      <tr>
+        <td>extractMin() / extractMax()</td>
+        <td><code>O(log n)</code></td>
+        <td><code>O(log n)</code></td>
+      </tr>
+      <tr>
+        <td>deleteHeap()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(1)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="hash-table">Hash Table</h4>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="2">Operations</th>
+        <th colspan="2">Time Complexity</th>
+        <th rowspan="2">Space Complexity</th>
+      </tr>
+      <tr>
+        <th>Avg.</th>
+        <th>Worst</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>search()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>insert()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+      <tr>
+        <td>delete()</td>
+        <td><code>O(1)</code></td>
+        <td><code>O(n)</code></td>
+        <td><code>O(n)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h4 id="graphs">Graphs</h4>
+
+<h5 id="common-operations">Common Operations</h5>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th rowspan="2">Operations</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Breadth First Search</td>
+        <td><code>O(V + E)</code></td>
+        <td><code>O(E)</code></td>
+      </tr>
+      <tr>
+        <td>Depth First Search</td>
+        <td><code>O(E + V)</code></td>
+        <td><code>O(V)</code></td>
+      </tr>
+      <tr>
+        <td>Topological sort</td>
+        <td><code>O(E + V)</code></td>
+        <td><code>O(E + V)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h5 id="common-algorithms-for-graph-problems">Common Algorithms for Graph problems</h5>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th class="align-middle" rowspan="3">Operations</th>
+        <th colspan="2">Single Source Shortest Path</th>
+        <th colspan="2">All Pair Shortest Path</th>
+      </tr>
+      <tr>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Breadth First Search</td>
+        <td><code>O(V<sup>2</sup>)</code></td>
+        <td><code>O(E)</code></td>
+        <td><code>O(V<sup>3</sup>)</code></td>
+        <td><code>O(EV)</code></td>
+      </tr>
+      <tr>
+        <td>Dijkstra</td>
+        <td><code>O(V<sup>2</sup>)</code></td>
+        <td><code>O(V)</code></td>
+        <td><code>O(V<sup>3</sup>)</code></td>
+        <td><code>O(EV)</code></td>
+      </tr>
+      <tr>
+        <td>Bellman Ford</td>
+        <td><code>O(VE)</code></td>
+        <td><code>O(V)</code></td>
+        <td><code>O(VE<sup>2</sup>)</code></td>
+        <td><code>O(V<sup>2</sup>)</code></td>
+      </tr>
+      <tr>
+        <td>Floyd Warshall</td>
+        <td><code>N/A</code></td>
+        <td><code>N/A</code></td>
+        <td><code>O(V<sup>3</sup>)</code></td>
+        <td><code>O(V<sup>2</sup>)</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="sorting-algorithms">Sorting Algorithms</h2>
+
+<div class="table-responsive">
+  <table class="table table-striped table-dark">
+    <thead>
+      <tr>
+        <th>Types</th>
+        <th>Time Complexity</th>
+        <th>Space Complexity</th>
+        <th>Stable</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Bubble sort</td>
+        <td><code>O(n<sup>2</sup>)</code></td>
+        <td><code>O(1)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Selection sort</td>
+        <td><code>O(n<sup>2</sup>)</code></td>
+        <td><code>O(1)</code></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Insertion sort</td>
+        <td><code>O(n<sup>2</sup>)</code></td>
+        <td><code>O(1)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Bucket sort</td>
+        <td><code>O(n log n)</code></td>
+        <td><code>O(n)</code></td>
+        <td>Yes<sup>*</sup></td>
+      </tr>
+      <tr>
+        <td>Merge sort</td>
+        <td><code>O(n log n)</code></td>
+        <td><code>O(n)</code></td>
+        <td>Yes</td>
+      </tr>
+      <tr>
+        <td>Quick sort</td>
+        <td><code>O(n log n)</code></td>
+        <td><code>O(n)<sup>*</sup></code></td>
+        <td>No</td>
+      </tr>
+      <tr>
+        <td>Heap sort</td>
+        <td><code>O(n log n)</code></td>
+        <td><code>O(1)</code></td>
+        <td>No</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="how-to-find-time-complexity">How to find time complexity</h2>
+
+<p>This section will show how to calculate the time complexity of <strong>iterative</strong> vs <strong>recursive</strong> algorithms.</p>
+
+<h3 id="iterative">Iterative</h3>
+
+<pre><code class="language-py3">def findBiggestNum(arr):
+  biggestNum = arr[0]            # ------------------O(1)
+  for i in range(0, len(arr)):   # ---------O(n)--|--O(n)
+    if arr[i] &gt; biggestNum:      # O(1)--|--O(1)--|
+      biggestNum = arr[i]        # O(1)--|
+  return biggestNum              # ------------------O(1)
+</code></pre>
+
+<p><strong>Time complexity:</strong> O(1) + O(n) + O(1) = O(n)</p>
+
+<hr />
+
+<h3 id="recursive-1">Recursive #1</h3>
+
+<pre><code class="language-py3">highest = 0
+
+def findBiggestNum(arr, n):         # ----T(n)
+  if n == -1:                       # ----O(1) ---|--- Base condition
+    return highest                  # ----O(1) ---|
+  else:                             # ----O(1)
+    if arr[n] &gt; highest:            # ----O(1)
+  return findBiggestNum(arr, n-1)   # ----T(n-1)
+</code></pre>
+
+<p><strong>Equation 1:</strong> T(n) = O(1) + T(n-1)</p>
+<blockquote>
+  <p>O(1) + O(1) + O(1) + O(1) = O(1)</p>
+</blockquote>
+
+<p><strong>Base Condition:</strong> T(-1) = O(1)</p>
+<blockquote>
+  <p>if n == -1, recursion will end, so if the recursion method = T(n), we replace n to -1 to get T(-1), and since base condition = O(1), T(-1) = O(1)</p>
+</blockquote>
+
+<p><strong>Equation 2:</strong> T(n-1) = O(1) + T((n-1)-1)</p>
+
+<p><strong>Equation 3:</strong> T(n-2) = O(1) + T((n-2)-1)</p>
+
+<pre><code class="language-js">T(n) = 1 + T(n-1)
+     = 1 + (1 + T((n-1)-1)) // substitute `Equation 2`
+     = 2 + T(n-2)
+     = 2 + (1 + T((n-2)-1)) // substitute `Equation 3`
+     = 3 + T(n-3)           // notice the pattern, substitue with k
+     = k + T(n-k)
+     = (n+1) + T(n-(n+1))   // attempt to make it T(-1) since it is the base condition, replace k with n+1
+     = n + 1 + T(-1)
+     = n + 1 + 1            // T(-1) = 1
+     = O(n)
+</code></pre>
+
+<hr />
+
+<h3 id="recursive-2">Recursive #2</h3>
+
+<pre><code class="language-py3">def search(num, arr, start, end):       # ----T(n)
+  if start &lt;= end:                      # ----O(1) ---|--- Base Condition
+    if arr[start] == num:               # ----O(1) ---|
+      return start                      # ----O(1) ---|
+    else:                               # ----O(1) ---|
+      return False                      # ----O(1) ---|
+  mid = find_mid(arr, start, end)       # ----O(1)
+  if mid &gt; num:                         # ----O(1)
+    search(num, arr, start, mid)        # ----T(n/2)
+  elif mid &lt; num:                       # ----O(1)
+    search(num, arr, mid, end)          # ----T(n/2)
+  elif mid == num:                      # ----O(1)
+    return mid                          # ----O(1)
+</code></pre>
+
+<p><strong>Equation 1:</strong> T(n) = T(n/2) + 1</p>
+
+<p><strong>Base Condition:</strong> T(1) = O(1)</p>
+<blockquote>
+  <p>If the array is of size 1, we can perform it in constant time</p>
+</blockquote>
+
+<p><strong>Equation 2:</strong> T(n/2) = T(n/4) + 1</p>
+
+<p><strong>Equation 3:</strong> T(n/4) = T(n/8) + 1</p>
+
+<pre><code class="language-js">T(n) = T(n/2) + 1
+     = T(n/4) + 1 + 1       // substitue `Equation 2`
+     = T(n/4) + 2
+     = T(n/8) + 1 + 2       // substitue `Equation 3`
+     = T(n/8) + 3
+     = T(n/2^k) + k         // notice the pattern, substitue with k
+     = T(1) + log n         // attempt to make it T(1) snce it is the base condition, see below how n/2^k = 1 = k
+     = 1 + log n
+     = O(log n)
+</code></pre>
+
+<blockquote>
+  <p>[n/2^K = 1] =&gt; [n = 2^K] =&gt; [k = log n]</p>
+</blockquote>
+
+
+</article>
+
+<!-- Rating -->
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+ 
+<div class="comments">
+    <button class="btn btn-dark show-comments">Load Comments</button>         
+    <div id="comments">  
+        <h4 class="mb-4">Comments</h4>                 
+            <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'demowebsite'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+     
+    <div class="clearfix"></div>              
+    </div>    
+</div>       
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=A cheat guide to run time complexity&url=/run-time-complexity/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=/run-time-complexity/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=/run-time-complexity/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Software-Engineering">Software Engineering</a>
+    
+
+    <!-- Tags -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Big-O">Big-O</a>
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Data-Structures-and-Algorithm">Data Structures and Algorithm</a>
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #6470ff;"
+            
+        >
+            <a
+                href="/post-order-traversal/"
+                
+                    style="color: #ffffff;"
+                
+            >
+                
+                    Post-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/post-order-traversal/">Post-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">20 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #b4149b;"
+            
+        >
+            <a
+                href="/in-order-traversal/"
+                
+                    style="color: #ffffff;"
+                
+            >
+                
+                    In-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/in-order-traversal/">In-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">19 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #1123ea;"
+            
+        >
+            <a
+                href="/pre-order-traversal/"
+                
+                    style="color: #ffffff;"
+                
+            >
+                
+                    Pre-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/pre-order-traversal/">Pre-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">18 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+                
+        </div>
+</div>
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+    </div>
+
+    
+
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center text-lg-left">
+                Copyright © 2020 Jazz Peh
+                <div class="social">
+                    
+                    <a class="social-icon" href="https://github.com/jazzpeh" target="_blank"><i class="fab fa-github"></i></a>
+                    
+                    
+                        <a class="social-icon" href="https://www.linkedin.com/in/jazz-peh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center text-lg-right">
+                <a target="_blank" href="https://www.wowthemes.net/memoirs-free-jekyll-theme/">Memoirs Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
+================================================== -->
+
+<script src="/assets/js/prism.js"></script>
+
+<script src="/assets/js/theme.js"></script>
+
+
+
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+
+
+<script type="text/javascript" src="/assets/js/main.js" async></script>
+
+</body>
+</html>

@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+<link rel="icon" href="/assets/images/favicon.png">
+
+<title>House Thief Problem | A 80% debugging, 20% coding programmer life</title>
+
+<!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>House Thief Problem | A 80% debugging, 20% coding programmer life</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="House Thief Problem" />
+<meta name="author" content="jazz" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="There are n houses built in a line, each containing some value. A thief is going to steal the maximum value from these houses. However, he can’t steal in 2 adjacent houses. What is the maximum stolen value?" />
+<meta property="og:description" content="There are n houses built in a line, each containing some value. A thief is going to steal the maximum value from these houses. However, he can’t steal in 2 adjacent houses. What is the maximum stolen value?" />
+<meta property="og:site_name" content="A 80% debugging, 20% coding programmer life" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-11T00:00:00+08:00" />
+<script type="application/ld+json">
+{"url":"/house-thief/","headline":"House Thief Problem","dateModified":"2020-05-11T00:00:00+08:00","datePublished":"2020-05-11T00:00:00+08:00","author":{"@type":"Person","name":"jazz"},"mainEntityOfPage":{"@type":"WebPage","@id":"/house-thief/"},"description":"There are n houses built in a line, each containing some value. A thief is going to steal the maximum value from these houses. However, he can’t steal in 2 adjacent houses. What is the maximum stolen value?","@type":"BlogPosting","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<link href="/assets/css/prism.css" rel="stylesheet">
+
+<link href="/assets/css/theme.css" rel="stylesheet">
+
+<script src="/assets/js/jquery.min.js"></script>
+
+</head>
+
+
+
+
+<body>
+	<!-- defer loading of font and font awesome -->
+	<noscript id="deferred-styles">
+		<link href="https://fonts.googleapis.com/css?family=Sen:400,700&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	</noscript>
+
+<!-- Begin Sidebar Navigation
+================================================== -->
+
+<div class="sidebar">
+</div>
+<div class="nav-icon">
+    <div class="hamburger-bar"></div>
+</div>
+<div id="blackover-nav" class="blackover"></div>
+<nav id="menu">
+    <ul>
+        <h3>Navigation</h3>
+        <li><a href="/">Home</a></li>
+        <li><a href="/categories">Categories</a></li>
+        <li><a href="/tags">Tags</a></li>
+    </ul>
+</nav>
+
+<script src="/assets/js/lunr.js"></script>
+
+<style>
+    
+</style>
+
+<div class="wrap-search">
+    <div class="d-flex align-items-center ml-auto">
+        <i class="fas fa-search show-search"></i>
+        <form class="bd-search ml-3" onSubmit="return lunr_search(document.getElementById('lunrsearch').value);">
+            <input type="text" class="form-control bigradius text-small launch-modal-search" id="lunrsearch" name="q" maxlength="255" value="" placeholder="Type and enter..."/>
+        </form>
+    </div>
+</div>
+
+<div id="lunrsearchresults">
+    <ul></ul>
+</div>
+
+<script src="/assets/js/lunrsearchengine.js"></script>
+
+
+<!-- End Sidebar Navigation
+================================================== -->
+
+<div class="site-content ">
+
+<div class="container">
+
+    <!-- Site Logo/Name
+    ================================================== -->
+
+    
+
+
+    <!-- Site Tag
+    ================================================== -->
+    
+
+    <!-- Content
+    ================================================== -->
+    <div class="main-content">
+        <div class="entry-header">
+    <!-- Post Title -->
+    <h1 class="posttitle">House Thief Problem</h1>
+    <!-- Author & Date  Box -->
+    
+    
+    <div class="d-flex align-items-center mt-4">
+        <div>
+            
+            <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+            
+        </div>            
+        <div>
+        Written by <a target="_blank" class="text-dark" href="https://www.linkedin.com/in/jazz-peh">Jazz</a> on 
+        <span class="post-date"><time class="post-date" datetime="2020-05-11">11 May 2020</time></span>           
+        
+        </div>            
+    </div>
+    
+</div>
+
+<!-- Adsense under title if enabled from _config.yml (change your pub id and slot) -->
+
+
+<!-- Featured Image -->
+
+
+<!-- Content -->
+<!-- Post, Page Content
+================================================== -->
+<article class="article-post">
+    <!-- Toc if any -->
+    
+    <!-- End Toc -->
+    <p>There are <strong>n</strong> houses built in a line, each containing some value. A thief is going to steal the <strong>maximum</strong> value from these houses. However, he can’t steal in <strong>2 adjacent</strong> houses. What is the maximum stolen value?</p>
+
+<pre><code class="language-text">Example 1
+-----------
+n: [6, 7, 1, 30, 8, 2, 4]
+max value: 41
+Explanation: Thief will steal from houses with 7, 30, 4.
+</code></pre>
+
+<pre><code class="language-text">Example 2
+-----------
+n: [20, 5, 1, 13, 6, 11, 40]
+max value: 73
+Explanation: Thief will steal from houses with 20, 13, 40.
+</code></pre>
+
+<h2 id="solution">Solution</h2>
+
+<p>This problem can be solved by applying <code>Divide and Conquer</code> to break down the problem into smaller subproblems. Thus, by solving this subproblems, we will arrive at our final answer. Let’s look at <strong>Example 1</strong> and try to derive the subproblems.</p>
+
+<pre><code class="language-text">f(7 houses) = max of [6 + f(remaining 5 houses)] or [0 + f(6 remaining 6 houses)]
+</code></pre>
+
+<p>So, what the above subproblems are saying is that, since we can’t steal from two adjacent houses, the thief can either steal from the first house, and then skip the second house and move on to the other remaining 5 houses given that we have 7 houses in total. Hence <code>6 + f(remaining 5 houses)</code>. Or, the thief can skip the first house and steal from the remaining 6 houses, and hence, <code>0 + f(remaining 6 houses)</code>. We’re looking for the maximum value which the thief can steal. Therefore, we want to find the maximum value returned from the two subproblems.</p>
+
+<h2 id="code-algortihm">Code Algortihm</h2>
+
+<pre><code class="language-py3">def steal_money(n: List[int], i: int) -&gt; int:
+    if i &gt;= len(n):
+      return 0
+
+    money1 = n[i] + steal_money(n, i+2)
+    money2 = steal_money(n, i+1)
+
+    return max(money1, money2)
+</code></pre>
+
+<h2 id="optimisation">Optimisation</h2>
+
+<p>Let’s look at the an example of the <strong>recursion tree</strong> to examine whether we need to optimise it.</p>
+
+<pre class="p-5 text-white bg-dark">
+                                                        steal_money(0)
+                                                      /                 \
+                                                  /                         \
+                                              /                                 \
+                                          /                                         \
+                                      /                                                 \
+                                steal_money(2)                                        steal_money(1)
+                        /                           \                                 /             \
+                steal_money(4)                  steal_money(3)                   steal_money(3)   steal_money(2)
+                /             \                 /           \                    /            \
+          steal_money(6)  steal_money(5)  steal_money(5)  steal_money(4)   steal_money(5)   steal_money(4)
+        /             \
+steal_money(8)    steal_money(7)
+</pre>
+
+<p>We can see from the above recursion tree that <code>steal_money(3)</code>, <code>steal_money(4)</code> and <code>steal_money(5)</code> have been computed multiple times. Hence, we can apply <code>Dynamic Programming</code> to optimise this solution.</p>
+
+<h3 id="top-down-approach">Top Down Approach</h3>
+
+<p>We will start off by applying <code>Top Down Approach</code> (also known as <code>Memoization</code>).</p>
+
+<pre><code class="language-py3">dp = {}
+
+def steal_money(n: List[int], i: int) -&gt; int:
+    if i &gt;= len(n):
+      return 0
+
+    if i not in dp:
+      money1 = n[i] + steal_money(n, i+2)
+      money2 = steal_money(n, i+1)
+      dp[i] = max(money1, money2)
+
+    return dp[i]
+</code></pre>
+
+<h3 id="bottom-up-approach">Bottom Up Approach</h3>
+
+<p>We can now then apply some reverse engineer to use the <code>Bottom Up Approach</code> (also known as <code>Tabulation</code>). Let’s visualise how <strong>dp</strong> is filled using <code>Top Down Approach</code>.</p>
+
+<div class="table-responsive">
+  <table class="table table-dark table-striped table-sm table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2">Iteration</th>
+        <th colspan="8">Steal Money</th>
+      </tr>
+      <tr>
+        <th>DP0</th>
+        <th>DP1</th>
+        <th>DP2</th>
+        <th>DP3</th>
+        <th>DP4</th>
+        <th>DP5</th>
+        <th>DP6</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>4.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>5.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>6.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>7.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-warning">max(H5+DP[7],DP[6])</td>
+        <td class="bg-danger">?</td>
+      </tr>
+      <tr>
+        <td>8.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-warning">max(H5+DP[7],DP[6])</td>
+        <td class="bg-warning">max(H6+DP[8],DP[7])</td>
+      </tr>
+       <tr>
+        <td>9.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-warning">max(H5+DP[7],DP[6])</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>10.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>11.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>12.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>13.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>14.</td>
+        <td class="bg-warning">max(H0+DP[2],DP[1])</td>
+        <td class="bg-success">max(7+34,34)=41</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+      <tr>
+        <td>15.</td>
+        <td class="bg-success">max(6+34,41)=41</td>
+        <td class="bg-success">max(7+34,34)=41</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>We can then now reverse the process. Let’s visualize how <code>Bottom Up Approach</code> works here.</p>
+
+<div class="table-responsive">
+  <table class="table table-dark table-striped table-sm table-bordered">
+    <thead>
+      <tr>
+        <th rowspan="2">Iteration</th>
+        <th colspan="8">Steal Money</th>
+      </tr>
+      <tr>
+        <th>DP0</th>
+        <th>DP1</th>
+        <th>DP2</th>
+        <th>DP3</th>
+        <th>DP4</th>
+        <th>DP5</th>
+        <th>DP6</th>
+        <th>DP7</th>
+        <th>DP8</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H6+DP[8],DP[7])</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H5+DP[7],DP[6])</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>4.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H4+DP[6],DP[5])</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>5.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>6.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H3+DP[5],DP[4])</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>7.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>8.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H2+DP[4],DP[3])</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>9.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>10.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-warning">max(H1+DP[3],DP[2])</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>11.</td>
+        <td class="bg-danger">?</td>
+        <td class="bg-success">max(7+34,34)=41</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>12.</td>
+        <td class="bg-success">max(6+34,41)=41</td>
+        <td class="bg-success">max(7+34,34)=41</td>
+        <td class="bg-success">max(1+12,34)=34</td>
+        <td class="bg-success">max(30+4,12)=34</td>
+        <td class="bg-success">max(8+4,4)=12</td>
+        <td class="bg-success">max(2+0,4)=4</td>
+        <td class="bg-success">max(4+0,0)=4</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<pre><code class="language-py3">def steal_money(n: List[int]) -&gt; int:
+  dp = {}
+
+  for i in range(len(n)+1, -1, -1):
+    if i &gt; len(n) - 1:
+      dp[i] = 0
+    else:
+      dp[i] = max(n[i] + dp[i+2], dp[i+1])
+
+  return dp[0]
+</code></pre>
+
+</article>
+
+<!-- Rating -->
+
+
+<!-- Author Box if enabled from _config.yml -->
+<!-- Author Box -->
+
+
+
+
+<!-- Comments if not disabled with comments: false -->
+<!-- Comments
+================================================== -->
+ 
+<div class="comments">
+    <button class="btn btn-dark show-comments">Load Comments</button>         
+    <div id="comments">  
+        <h4 class="mb-4">Comments</h4>                 
+            <section class="disqus">
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        var disqus_shortname = 'demowebsite'; 
+        var disqus_developer = 0;
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = window.location.protocol + '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+     
+    <div class="clearfix"></div>              
+    </div>    
+</div>       
+
+
+<!-- Share -->
+<div class="share">
+    <p>
+        Share
+    </p>
+    <ul>
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://twitter.com/intent/tweet?text=House Thief Problem&url=/house-thief/" onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://facebook.com/sharer.php?u=/house-thief/" onclick="window.open(this.href, 'facebook-share', 'width=550,height=435');return false;">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+        </li>
+
+        <li class="ml-1 mr-1">
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=/house-thief/" onclick="window.open(this.href, 'width=550,height=435');return false;">
+                <i class="fab fa-linkedin-in"></i>
+            </a>
+        </li>
+
+    </ul>
+</div>
+
+
+<!-- Related Post -->
+<!-- Related Posts
+================================================== -->
+<div class=" related-posts ">
+
+    
+    <h2 class="text-center mb-4">Explore more like this</h2>
+    
+
+    <div class="d-flex justify-content-center align-items-center flex-wrap">
+
+    <!-- Categories -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/categories#Software-Engineering">Software Engineering</a>
+    
+
+    <!-- Tags -->
+    
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Data-Structures-and-Algorithm">Data Structures and Algorithm</a>
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Divide-and-Conquer">Divide and Conquer</a>
+    
+    <a class="smoothscroll badge badge-primary text-capitalize" href="/tags#Dynamic-Programming">Dynamic Programming</a>
+    
+
+    </div>
+
+    
+    
+    
+    <div class="blog-grid-container">
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #bcd097;"
+            
+        >
+            <a
+                href="/post-order-traversal/"
+                
+                    style="color: #000000;"
+                
+            >
+                
+                    Post-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/post-order-traversal/">Post-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">20 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #fdb90c;"
+            
+        >
+            <a
+                href="/in-order-traversal/"
+                
+                    style="color: #ffffff;"
+                
+            >
+                
+                    In-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/in-order-traversal/">In-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">19 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+            
+
+        
+
+            
+            
+
+            
+
+            
+            <!-- begin post -->
+
+
+
+
+<div class="blog-grid-item">
+    <div class="card h-100 w-100">
+        <div
+            class="maxthumb no-hero"
+            
+                style="background-color: #22f72e;"
+            
+        >
+            <a
+                href="/pre-order-traversal/"
+                
+                    style="color: #ffffff;"
+                
+            >
+                
+                    Pre-order Traversal
+                
+            </a>
+        </div>
+        <div class="card-body">
+            <h2 class="card-title">
+                <a class="text-dark" href="/pre-order-traversal/">Pre-order Traversal</a>
+                
+            </h2>
+            <h4 class="card-text">Lets look at the 4 options to traverse a binary tree:
+</h4>
+        </div>
+        <div class="card-footer bg-white">
+            <div class="wrapfooter">
+                
+                <span class="meta-footer-thumb">
+                
+                <img class="author-thumb" src="https://www.gravatar.com/avatar/4a1229bd40b1fcd153f70d056e6fed9a?s=250&d=mm&r=x" alt="Jazz">
+                
+                </span>
+                <span class="author-meta">
+                <span class="post-name"><a target="_blank" href="https://www.linkedin.com/in/jazz-peh">Jazz</a></span>
+                
+                <span class="post-date">18 May 2020</span>
+                </span>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- end post -->
+            
+            
+                
+        </div>
+</div>
+
+<!-- Review with LD-JSON, adapt it for your needs if you like, but make sure you test the generated HTML source code first: 
+https://search.google.com/structured-data/testing-tool/u/0/
+================================================== -->
+
+    </div>
+
+    
+
+</div>
+
+<!-- Begin Footer
+================================================== -->
+<footer class="footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 text-center text-lg-left">
+                Copyright © 2020 Jazz Peh
+                <div class="social">
+                    
+                    <a class="social-icon" href="https://github.com/jazzpeh" target="_blank"><i class="fab fa-github"></i></a>
+                    
+                    
+                        <a class="social-icon" href="https://www.linkedin.com/in/jazz-peh/" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 text-center text-lg-right">
+                <a target="_blank" href="https://www.wowthemes.net/memoirs-free-jekyll-theme/">Memoirs Jekyll Theme</a> by WowThemes.net
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer
+================================================== -->
+
+</div> <!-- /.site-content -->
+
+<!-- Scripts (if you need bootstrap.js, please add it yourself. I didn't use it for performance reasons, it was not needed in this theme)
+================================================== -->
+
+<script src="/assets/js/prism.js"></script>
+
+<script src="/assets/js/theme.js"></script>
+
+
+
+
+<script id="dsq-count-scr" src="//demowebsite.disqus.com/count.js"></script>
+
+
+<script type="text/javascript" src="/assets/js/main.js" async></script>
+
+</body>
+</html>
