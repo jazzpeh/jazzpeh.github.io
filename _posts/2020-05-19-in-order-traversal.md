@@ -4,7 +4,6 @@ title:  "In-order Traversal"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Binary Tree, Data Structures and Algorithm ]
-image: assets/images/iot.jpg
 ---
 
 Lets look at the 4 options to traverse a binary tree:

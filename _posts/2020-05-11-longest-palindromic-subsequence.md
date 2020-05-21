@@ -4,7 +4,6 @@ title:  "Longest Palindromic Subsequence"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/lps.jpg
 ---
 
 Given a string **S**, we need to find the length of its **Longest Palindromic Subsequence**. Palindrome is a string that reads the same backwards as well as forward and can be odd or even length. A subsequence is a sequence that can be derived from another string by *deleting some or no elements* without **changing the order** of the remaining elements.

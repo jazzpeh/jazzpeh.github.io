@@ -4,7 +4,6 @@ title:  "Min cost to reach last cell in 2D Array"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/mc2darr.jpg
 ---
 
 Given a **(n,n) 2D matrix**, we need to start from **(0,0)** cell and go till **(n-1,n-1)** cell. Assuming that each cell has a **cost** associated and we can only go **right or down** from current cell, find the traversal in **minimum** cost.

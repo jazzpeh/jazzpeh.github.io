@@ -4,7 +4,6 @@ title:  "Longest Palindromic Substring"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/lps2.jpg
 ---
 
 Given a string **S**, we need to find length of its **Longest Palindromic Substring**. Palindrome is a string that reads the same backwards as well as forward and can be odd or even length. A substring is a **contiguous** sequence of characters within a string.

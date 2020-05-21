@@ -34,6 +34,8 @@ plugins:
   - jekyll-archives
   - jekyll-figure
 
+plugins_dir: ./_plugins
+
 # Archives
 jekyll-archives:
   enabled:
@@ -71,7 +73,7 @@ sass:
 
 # Github Pages
 lsi: false
-safe: true
+safe: false
 source: ''
 incremental: false
 highlighter: rouge

@@ -4,7 +4,6 @@ title:  "House Thief Problem"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/house-thief.jpg
 ---
 
 There are **n** houses built in a line, each containing some value. A thief is going to steal the **maximum** value from these houses. However, he can't steal in **2 adjacent** houses. What is the maximum stolen value?

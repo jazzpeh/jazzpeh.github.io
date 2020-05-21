@@ -4,7 +4,6 @@ title:  "Breadth First Search"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Graph,  Data Structures and Algorithm ]
-image: assets/images/bfs.jpg
 ---
 
 BFS is an algorithm for traversing Graph data structures. It starts at some arbitrary node of a graph and explores the neighbour nodes (which are at current level) first, before moving to the next level neighbours.

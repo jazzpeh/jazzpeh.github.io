@@ -4,7 +4,6 @@ title:  "Depth First Search"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Graph,  Data Structures and Algorithm ]
-image: assets/images/dfs.jpg
 ---
 
 DFS is an algorithm for traversing Graph data structures. It starts by selecting some arbitrary node and explores as far as possible along each edge before backtracking.

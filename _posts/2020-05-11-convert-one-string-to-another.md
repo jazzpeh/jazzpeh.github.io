@@ -4,7 +4,6 @@ title:  "Convert One String to Another Problem"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/convert-one-string-to-another.jpg
 ---
 
 Given strings **s1** and **s2**, convert s2 into s1 by deleting, inserting or replacing characters. Find out the minimum number of edit operations.

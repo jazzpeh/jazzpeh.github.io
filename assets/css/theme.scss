@@ -679,6 +679,38 @@ canvas.code-aid {
     }
 }
 
+.maxthumb.no-hero {
+    a {
+        align-items: center;
+        display: flex;
+        min-height: 240px;
+        height: 45%;
+        padding: 10px 15px;
+        justify-content: center;
+        font-size: 1.5rem;
+        font-weight: bold;
+        text-align: center;
+
+        .firstpage .blog-grid-item:first-child & {
+            @media (min-width: 768px) {
+                font-size: 2rem;
+            }
+        }
+
+        &:hover {
+            text-decoration: none;
+        }
+    }
+
+    .blog-grid-item:first-child & {
+        height: 45%;
+
+        a {
+            height: 100%;
+        }
+    }
+}
+
 //responsive tweaks
 @media (min-width: 768px) {
     .container, .container-sm, .container-md, .container-lg {

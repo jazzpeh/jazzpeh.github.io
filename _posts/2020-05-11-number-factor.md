@@ -4,7 +4,6 @@ title:  "Number Factor Problem"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/number-factor.jpg
 ---
 
 Given **N**, count the number of ways to express N as sum of **1,3 and 4**.

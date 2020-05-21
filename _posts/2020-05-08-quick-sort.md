@@ -4,7 +4,6 @@ title:  "Quick Sort"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Sorting, Divide and Conquer, Data Structures and Algorithm ]
-image: assets/images/quick-sort.jpg
 ---
 
 Quick sort is a `Divide & Conquer` algorithm. At each step, it finds the **Pivot** and then makes sure that all the smaller elements are left of **Pivot** and all larger elements are on the right. It continues to do so recursively until the entire array is sorted. Unlike [`Merge Sort`]({% post_url 2020-05-06-merge-sort %}), it doesn't requires any external space.

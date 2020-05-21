@@ -1,10 +1,9 @@
 ---
 layout: post
-title:  Number of paths to reach last cell"
+title:  Number of paths to reach last cell
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/nplc.jpg
 ---
 
 Given a **(n,n) 2D matrix** and a **total cost** to reach the destination cell, we need to start from **(0,0)** cell and go till **(n-1,n-1)** cell. Assuming that each cell has a **cost** associated and we can only go right or down from current cell. Find the number of ways to reach destination cell with given total cost.

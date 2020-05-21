@@ -4,7 +4,6 @@ title:  "Longest Common Subsequence"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Divide and Conquer, Dynamic Programming,  Data Structures and Algorithm ]
-image: assets/images/dc-lcs.jpg
 ---
 
 `Divide & Conquer` algorithm can be used to solve **Longest Common Subsequence** problem . Let's explore how it works below.

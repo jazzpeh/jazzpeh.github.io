@@ -4,7 +4,6 @@ title:  "Merge Sort"
 author: jazz
 categories: [ Software Engineering ]
 tags: [ Sorting, Divide and Conquer, Data Structures and Algorithm ]
-image: assets/images/merge-sort.jpg
 ---
 
 Merge sort is a `Divide & Conquer` algorithm. It divides the input array into 2 halves, and recursively breaks those halves until they become so small that it can't be broken further. Then, each section of the pieces are merged together to inch towards the final answer.
