@@ -1,4 +1,131 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Work from 127.0.0.0]]></title><description><![CDATA[Doodles about Software Engineering and more.]]></description><link>https://jazzpeh.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 02 Jun 2020 05:00:51 GMT</lastBuildDate><item><title><![CDATA[Post-order Traversal]]></title><description><![CDATA[Lets look at the 4 options to traverse a binary tree: Depth First Search Pre-order In-order Post-order Breadth First Search Level-order In…]]></description><link>https://jazzpeh.github.io/post-order-traversal/</link><guid isPermaLink="false">https://jazzpeh.github.io/post-order-traversal/</guid><pubDate>Wed, 20 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Work from 127.0.0.0]]></title><description><![CDATA[Doodles about Software Engineering and more.]]></description><link>https://jazzpeh.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 03 Jun 2020 03:49:21 GMT</lastBuildDate><item><title><![CDATA[Level-order Traversal]]></title><description><![CDATA[Lets look at the 4 options to traverse a binary tree: Depth First Search Pre-order In-order Post-order Breadth First Search Level-order In…]]></description><link>https://jazzpeh.github.io/level-order-traversal/</link><guid isPermaLink="false">https://jazzpeh.github.io/level-order-traversal/</guid><pubDate>Thu, 21 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Depth First Search&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;../pre-order-traversal/&quot;&gt;Pre-order&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;../in-order-traversal/&quot;&gt;In-order&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;../post-order-traversal/&quot;&gt;Post-order&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Breadth First Search&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Level-order&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;In this post, let’s explore &lt;code&gt;Level-order&lt;/code&gt; traversal.&lt;/p&gt;
+&lt;h2&gt;Visualise how it traverse&lt;/h2&gt;
+&lt;p&gt;We first visit the first level, then the second and so on level by level.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container solarized-light grvsc-ps-tiaGIi grvsc-mm-tYvMB2 grvsc-ps-tYvMB2&quot; data-language=&quot;sh&quot; data-index=&quot;0&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;1. -&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;              20&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;                 /    \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;              /         \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;2. -&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;        100         3&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;           /     &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-4 grvsc-tYvMB2-6&quot;&gt;\ &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    /   \&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;3. -&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    50      15  250   35&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;        /&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;4. -&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; 222&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;Answer: 20, 100, 3, 50, 15, 250, 35, 222&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2&gt;Code Algorithm&lt;/h2&gt;
+&lt;p&gt;Here’s the code example to implmenent a &lt;code&gt;Level-order&lt;/code&gt;traversal.&lt;/p&gt;
+&lt;pre class=&quot;grvsc-container solarized-light grvsc-ps-tiaGIi grvsc-mm-tYvMB2 grvsc-ps-tYvMB2&quot; data-language=&quot;ts&quot; data-index=&quot;1&quot;&gt;&lt;code class=&quot;grvsc-code&quot;&gt;&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-13 grvsc-tiaGIi-b grvsc-tYvMB2-4&quot;&gt;type&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-10&quot;&gt;BinaryNode&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-10&quot;&gt;string&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;?:&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-10&quot;&gt;BinaryNode&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;?:&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-10&quot;&gt;BinaryNode&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;;&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;};&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-13 grvsc-tiaGIi-b grvsc-tYvMB2-4&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;levelOrder&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-10&quot;&gt;BinaryNode&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;)&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-10&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-15&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-15&quot;&gt;throw&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-4&quot;&gt;new&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-10&quot;&gt;Error&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-13 grvsc-tiaGIi-b grvsc-tYvMB2-4&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; [];&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;root&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-15&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-12&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-6 grvsc-tYvMB2-7&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;) {&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-13 grvsc-tiaGIi-b grvsc-tYvMB2-4&quot;&gt;const&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-1&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;shift&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;();&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-10&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;val&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-15&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;left&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;    &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-8 grvsc-tYvMB2-15&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt; (&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;) &lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;queue&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-11&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-7 grvsc-tYvMB2-12&quot;&gt;right&lt;/span&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;);&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;  }&lt;/span&gt;&lt;/span&gt;
+&lt;span class=&quot;grvsc-line&quot;&gt;&lt;span class=&quot;grvsc-tiaGIi-1 grvsc-tYvMB2-1&quot;&gt;}&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+  }
+  
+  .grvsc-code {
+    display: inline-block;
+    min-width: 100%;
+  }
+  
+  .grvsc-line {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-line-highlighted {
+    background-color: var(--grvsc-line-highlighted-background-color, transparent);
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, transparent);
+  }
+  
+  .solarized-light { background-color: #FDF6E3; }
+  .solarized-light .grvsc-tiaGIi-b { font-weight: bold; }
+  .solarized-light .grvsc-tiaGIi-1 { color: #657B83; }
+  .solarized-light .grvsc-tiaGIi-8 { color: #859900; }
+  .solarized-light .grvsc-tiaGIi-4 { color: #CB4B16; }
+  .solarized-light .grvsc-tiaGIi-13 { color: #073642; }
+  .solarized-light .grvsc-tiaGIi-7 { color: #268BD2; }
+  .solarized-light .grvsc-tiaGIi-6 { color: #D33682; }
+  body.light .grvsc-ps-tiaGIi { background-color: #FDF6E3; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-b { font-weight: bold; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-1 { color: #657B83; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-8 { color: #859900; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-4 { color: #CB4B16; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-13 { color: #073642; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-7 { color: #268BD2; }
+  body.light .grvsc-ps-tiaGIi .grvsc-tiaGIi-6 { color: #D33682; }
+  body.dark .grvsc-ps-tYvMB2 {
+    background-color: #1E1E1E;
+    color: #D4D4D4;
+  }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-1 { color: #D4D4D4; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-6 { color: #D7BA7D; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-4 { color: #569CD6; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-10 { color: #4EC9B0; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-12 { color: #9CDCFE; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-11 { color: #DCDCAA; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-15 { color: #C586C0; }
+  body.dark .grvsc-ps-tYvMB2 .grvsc-tYvMB2-7 { color: #B5CEA8; }
+  
+  /* Default Dark+ */
+  @media (prefers-color-scheme: dark) {
+    .grvsc-mm-tYvMB2 {
+      background-color: #1E1E1E;
+      color: #D4D4D4;
+    }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-1 { color: #D4D4D4; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-6 { color: #D7BA7D; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-4 { color: #569CD6; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-10 { color: #4EC9B0; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-12 { color: #9CDCFE; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-11 { color: #DCDCAA; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-15 { color: #C586C0; }
+    .grvsc-mm-tYvMB2 .grvsc-tYvMB2-7 { color: #B5CEA8; }
+  }
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Post-order Traversal]]></title><description><![CDATA[Lets look at the 4 options to traverse a binary tree: Depth First Search Pre-order In-order Post-order Breadth First Search Level-order In…]]></description><link>https://jazzpeh.github.io/post-order-traversal/</link><guid isPermaLink="false">https://jazzpeh.github.io/post-order-traversal/</guid><pubDate>Wed, 20 May 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Lets look at the 4 options to traverse a binary tree:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;Depth First Search&lt;/p&gt;
@@ -11,7 +138,7 @@
 &lt;li&gt;
 &lt;p&gt;Breadth First Search&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Level-order&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;../level-order-traversal/&quot;&gt;Level-order&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -140,7 +267,7 @@
 &lt;li&gt;
 &lt;p&gt;Breadth First Search&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Level-order&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;../level-order-traversal/&quot;&gt;Level-order&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -282,7 +409,7 @@
 &lt;li&gt;
 &lt;p&gt;Breadth First Search&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;Level-order&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;../level-order-traversal/&quot;&gt;Level-order&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
