@@ -1,4 +1,45 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Work from 127.0.0.0]]></title><description><![CDATA[Doodles about Software Engineering and more.]]></description><link>https://jazzpeh.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Thu, 04 Jun 2020 06:36:22 GMT</lastBuildDate><item><title><![CDATA[Binary Search Tree]]></title><description><![CDATA[Binary Search Tree is a Binary Tree in which all the nodes follow these properties: Left sub-tree of a node has a value <= its parent node’s…]]></description><link>https://jazzpeh.github.io/binary-search-tree/</link><guid isPermaLink="false">https://jazzpeh.github.io/binary-search-tree/</guid><pubDate>Thu, 04 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Binary Search Tree is a Binary Tree in which all the nodes follow these properties:&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[Work from 127.0.0.0]]></title><description><![CDATA[Doodles about Software Engineering and more.]]></description><link>https://jazzpeh.github.io</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 21 Jul 2020 06:54:23 GMT</lastBuildDate><item><title><![CDATA[CSS Scroll Animation]]></title><link>https://jazzpeh.github.io/css-scroll-animation/</link><guid isPermaLink="false">https://jazzpeh.github.io/css-scroll-animation/</guid><pubDate>Thu, 02 Jul 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;&lt;a href=&quot;https://codepen.io/jazzpeh/pen/wvMrzpL&quot;&gt;&lt;div&gt;&lt;iframe 
+        height=&apos;400&apos; 
+        scrolling=&apos;no&apos; 
+        src=&apos;//codepen.io/jazzpeh/embed/preview/wvMrzpL/?height=400&amp;theme-id=dark&amp;default-tab=html,result&apos; 
+        frameborder=&apos;no&apos; 
+        allowtransparency=&apos;true&apos; 
+        allowfullscreen=&apos;true&apos; 
+        style=&apos;width: 100%;&apos;&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;style class=&quot;grvsc-styles&quot;&gt;
+  .grvsc-container {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-top: 1rem;
+    padding-top: var(--grvsc-padding-top, var(--grvsc-padding-v, 1rem));
+    padding-bottom: 1rem;
+    padding-bottom: var(--grvsc-padding-bottom, var(--grvsc-padding-v, 1rem));
+    border-radius: 8px;
+    border-radius: var(--grvsc-border-radius, 8px);
+    font-feature-settings: normal;
+  }
+  
+  .grvsc-code {
+    display: inline-block;
+    min-width: 100%;
+  }
+  
+  .grvsc-line {
+    display: inline-block;
+    box-sizing: border-box;
+    width: 100%;
+    padding-left: 1.5rem;
+    padding-left: var(--grvsc-padding-left, var(--grvsc-padding-h, 1.5rem));
+    padding-right: 1.5rem;
+    padding-right: var(--grvsc-padding-right, var(--grvsc-padding-h, 1.5rem));
+  }
+  
+  .grvsc-line-highlighted {
+    background-color: var(--grvsc-line-highlighted-background-color, transparent);
+    box-shadow: inset var(--grvsc-line-highlighted-border-width, 4px) 0 0 0 var(--grvsc-line-highlighted-border-color, transparent);
+  }
+  
+&lt;/style&gt;</content:encoded></item><item><title><![CDATA[Binary Search Tree]]></title><description><![CDATA[Binary Search Tree is a Binary Tree in which all the nodes follow these properties: Left sub-tree of a node has a value <= its parent node’s…]]></description><link>https://jazzpeh.github.io/binary-search-tree/</link><guid isPermaLink="false">https://jazzpeh.github.io/binary-search-tree/</guid><pubDate>Thu, 04 Jun 2020 00:00:00 GMT</pubDate><content:encoded>&lt;p&gt;Binary Search Tree is a Binary Tree in which all the nodes follow these properties:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;Left sub-tree of a node has a value &lt;strong&gt;&amp;#x3C;=&lt;/strong&gt; its parent node’s value&lt;/li&gt;
 &lt;li&gt;Right sub-tree of a node has a value &lt;strong&gt;&gt;=&lt;/strong&gt; its parent node’s value&lt;/li&gt;
@@ -3873,12 +3914,15 @@ France,37,67000,Yes
       [&quot;Operations&quot;, &quot;Time&quot;, &quot;Space&quot;]
     ],
     &quot;tbody&quot;: [
-      [&quot;createHeap()&quot;, &quot;`O(1)`&quot;, &quot;`O(n)`&quot;],
+      [&quot;initHeap()&quot;, &quot;`O(1)`&quot;, &quot;`O(n)`&quot;],
       [&quot;peekTopOfHeap() &quot;, &quot;`O(1)`&quot;, &quot;`O(1)`&quot;],
       [&quot;sizeOfHeap()&quot;, &quot;`O(n)`&quot;, &quot;`O(1)`&quot;],
-      [&quot;insertValue()&quot;, &quot;`O(1)`&quot;, &quot;`O(1)`&quot;],
-      [&quot;extractMin() / extractMax() &quot;, &quot;`O(n)`&quot;, &quot;`O(1)`&quot;],
-      [&quot;deleteHeap()&quot;, &quot;`O(1)`&quot;, &quot;`O(1)`&quot;]
+      [&quot;insertValue()&quot;, &quot;`O(log n)`&quot;, &quot;`O(log n)`&quot;],
+      [&quot;deleteValue()&quot;, &quot;`O(log n)`&quot;, &quot;`O(log n)`&quot;],
+      [&quot;extractMin() / extractMax() &quot;, &quot;`O(log n)`&quot;, &quot;`O(log n)`&quot;],
+      [&quot;deleteHeap()&quot;, &quot;`O(1)`&quot;, &quot;`O(1)`&quot;],
+      [&quot;createHeap() / heapSort()&quot;, &quot;`O(n log n)`&quot;, &quot;`O(n log n)`&quot;],
+      [&quot;heapify()&quot;, &quot;`O(n)`&quot;, &quot;`O(n)`&quot;]
     ]
   }
 &lt;/responsive-table&gt;
